@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estrutura | Hash Table</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Ubuntu:wght@700&display=swap" rel="stylesheet">    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Ubuntu:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/home.css">
     <link rel="stylesheet" href="styles/responsive.css">
@@ -29,51 +29,58 @@
                 <canvas id="canvas"></canvas>
                 <div class="buttons">
                         <div class="field">
-                            <input 
-                            type="number" 
-                            name="search"
+                            <input
+                            type="number"
+                            name="key"
+                            placeholder="Valor"
+                            id="insertKey"
+                            >
+                            <input
+                            name="insert"
                             placeholder="Valor"
                             id="insertValue"
                             >
-                            <button onclick="staticQueue.insert(document.getElementById('insertValue').value)">
+                            <button onclick="test_obj.insert(document.getElementById('insertKey').value, document.getElementById('insertValue').value)">
                                 Inserir
                             </button>
                         </div>
 
                         <div class="field">
-                            <input 
-                            type="number" 
+                            <input
+                            type="number"
+                            id="removeKey"
                             placeholder="Valor"
                             >
-                            <button>
+                            <button onclick="test_obj.remove(document.getElementById('removeKey').value)">
                                 Remover
                             </button>
                         </div>
 
                         <div class="field" >
-                            <input 
-                            type="number" 
+                            <input
+                            type="number"
+                            id="searchKey"
                             placeholder="Valor"
                             >
-                            <button>
+                            <button onclick="test_obj.search(document.getElementById('searchKey').value)">
                                 Pesquisar
                             </button>
                         </div>
 
                         <div class="field">
-                            <button style = "border-radius: 8px 8px 8px 8px;">
+                            <button style="border-radius: 8px 8px 8px 8px"; onclick="test_obj.clear()">
                                 Clear
                             </button>
                         </div>
 
                 </div>
-                </main>         
+                </main>
              </main>
 
         </div>
-    </div> 
-    
-    <script src="./back-end/objects/HashTable.js"></script>
+    </div>
+
+    <script src="./objects/HashTable.js"></script>
 
 </body>
 </html>
