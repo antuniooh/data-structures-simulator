@@ -38,20 +38,23 @@ class LinkedQueue {
     novo.previous = ptrAnt;
 
     this.size++;
+    alert("Amigo, parece que sua inserção teve sucesso :)")
     return true;
    }
 
    remove(value){
-     if(!this.search(value))
+     if(!this.search(value)){
+      alert("Amigo, parece que sua remoção não teve sucesso :(")
       return false;
+     }
 
       let it = this.first;
 
       while(it != null){
       if(it.value == value){
         if(it.previous == null && it.next == null){
-            this.first = nullptr;
-            this.last = nullptr;
+            this.first = null;
+            this.last = null;
         }
         else if(it.previous == null){
             it.next.previous = null;
@@ -66,10 +69,12 @@ class LinkedQueue {
           it.next.previous = it.previous;
         }
         this.size--;
+        alert("Amigo, parece que sua remoção teve sucesso :)")
         return true;
       }
       it = it.next;
     }
+    alert("Amigo, parece que sua remoção não teve sucesso :(")
     return false;
    }
 
@@ -87,9 +92,22 @@ class LinkedQueue {
       }
       if (ptrAtual && ptrAtual.value === value){
          this.finded_value = ptrAtual;
+         alert("Amigo, parece que sua procura teve sucesso :)")
          return true;
       }
+      alert("Amigo, parece que sua procura não teve sucesso :(")
       return false;
    }
+   print(){
+    let tmp = new Node();
+    tmp = this.first;
+
+    while (tmp) {
+      console.log(tmp.value);
+      tmp = tmp.next;
+    }
+  }
 }
+
+const linkedQueue = new LinkedQueue();
 

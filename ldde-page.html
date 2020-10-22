@@ -26,15 +26,16 @@
 
             <main>
 
-                <canvas id="canvas"></canvas>
+                <canvas id="canvas" onclick="linkedQueue.print()"></canvas>
                 <div class="buttons">
                         <div class="field">
                             <input 
                             type="number" 
                             name="search"
                             placeholder="Valor"
+                            id="insertValue"
                             >
-                            <button>
+                            <button onclick="linkedQueue.insert(document.getElementById('insertValue').value)">
                                 Inserir
                             </button>
                         </div>
@@ -43,8 +44,9 @@
                             <input 
                             type="number" 
                             placeholder="Valor"
+                            id="removeValue"
                             >
-                            <button>
+                            <button onclick="linkedQueue.remove(document.getElementById('removeValue').value)">
                                 Remover
                             </button>
                         </div>
@@ -53,14 +55,16 @@
                             <input 
                             type="number" 
                             placeholder="Valor"
+                            id="searchValue"
                             >
-                            <button>
+                            <button onclick="linkedQueue.search(document.getElementById('searchValue').value)">
                                 Pesquisar
                             </button>
                         </div>
 
                         <div class="field">
-                            <button style = "border-radius: 8px 8px 8px 8px;">
+                            <button style = "border-radius: 8px 8px 8px 8px;"
+                            onclick="linkedQueue.clear()">
                                 Clear
                             </button>
                         </div>
@@ -72,7 +76,7 @@
         </div>
     </div> 
     
-    <script src="./back-end/objects/LinkedQueue.js"></script>
+    <script src="./objects/LinkedQueue.js"></script>
 
 </body>
 </html>

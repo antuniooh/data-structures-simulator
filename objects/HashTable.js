@@ -54,3 +54,5 @@ class HashTable{
      }
   };
 }
+
+var test_obj = new HashTable();
