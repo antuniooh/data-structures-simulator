@@ -1,10 +1,3 @@
-/**
- * @class       : hash
- * @author      : Henrique Vital Carvalho (henriquevital1000@hotmail.com)
- * @created     : sábado out 17, 2020 15:11:26 -03
- * @description : hash
- */
-
 class HashTable{
   constructor(){
     this._storage = [];

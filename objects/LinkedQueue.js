@@ -1,17 +1,10 @@
-/**
- * @class       : ldde
- * @author      : Henrique Vital Carvalho (henriquevital1000@hotmail.com)
- * @created     : domingo out 18, 2020 20:04:30 -03
- * @description : ldde
- */
-
 function Node(){
    this.value = null;
    this.previous = null;
    this.next = null;
 }
 
-class Ldde {
+class LinkedQueue {
    constructor(){
       this.first = null;
       this.last = null;

@@ -37,4 +37,8 @@ class StaticQueue
      this.elements = [];
     }
 
+    search(value){
+      return (this.elements.indexOf(value) != -1);
+    }
+
 };
