@@ -99,10 +99,8 @@ class LinkedQueue {
       return false;
    }
    print(){
-    let tmp = new Node();
-    tmp = this.first;
-
-    while (tmp) {
+    let tmp = this.first;
+    while (tmp != null) {
       console.log(tmp.value);
       tmp = tmp.next;
     }
