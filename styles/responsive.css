@@ -34,26 +34,26 @@
         margin-top: 10px;
     }
     
-    #page-search-results main{
+    #page-index main{
         margin: 48px 20px 20px 20px;
     }
-    #page-search-results .cards{
+    #page-index .cards{
         grid-template-columns: 1fr;
         width: 100%;
     }
 
-    #page-search-results .cards img{
+    #page-index .cards img{
         height: 100px;
     }
-    #page-search-results .cards p{
+    #page-index .cards p{
         font-size: 12px;
         line-height: 18px;
     }
-    #page-search-results .cards h3{
+    #page-index .cards h3{
         font-size: 20px;
         line-height: 23px;
     }
-    #page-search-results .cards h1{
+    #page-index .cards h1{
         font-size: 25px;
         line-height: 20px;
     }
