@@ -43,14 +43,7 @@
                         </div>
 
                         <div class="field">
-                            <input
-                            type="number"
-                            placeholder="Valor"
-                            id="removeValue"
-                            value=256
-                            oninput="manipulate_window_components_obj.verify_entry('removeValue', 'removeButton')"
-                            >
-                            <button id="removeButton" onclick="staticQueue.remove(document.getElementById('removeValue').value)">
+                            <button onclick="staticQueue.remove()">
                                 Remover
                             </button>
                         </div>
