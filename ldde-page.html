@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estrutura | Linked Queue</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Ubuntu:wght@700&display=swap" rel="stylesheet">    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Ubuntu:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/home.css">
     <link rel="stylesheet" href="styles/responsive.css">
@@ -29,35 +29,41 @@
                 <canvas id="canvas" onclick="linkedQueue.print()"></canvas>
                 <div class="buttons">
                         <div class="field">
-                            <input 
-                            type="number" 
+                            <input
+                            type="number"
                             name="search"
                             placeholder="Valor"
                             id="insertValue"
+                            value=10
+                            oninput="manipulate_window_components_obj.verify_entry('insertValue', 'insertButton')"
                             >
-                            <button onclick="linkedQueue.insert(document.getElementById('insertValue').value)">
+                            <button id="insertButton" onclick="linkedQueue.insert(document.getElementById('insertValue').value)">
                                 Inserir
                             </button>
                         </div>
 
                         <div class="field">
-                            <input 
-                            type="number" 
+                            <input
+                            type="number"
                             placeholder="Valor"
                             id="removeValue"
+                            value=10
+                            oninput="manipulate_window_components_obj.verify_entry('removeValue', 'removeButton')"
                             >
-                            <button onclick="linkedQueue.remove(document.getElementById('removeValue').value)">
+                            <button id="removeButton" onclick="linkedQueue.remove(document.getElementById('removeValue').value)">
                                 Remover
                             </button>
                         </div>
 
                         <div class="field" >
-                            <input 
-                            type="number" 
+                            <input
+                            type="number"
                             placeholder="Valor"
                             id="searchValue"
+                            value=10
+                            oninput="manipulate_window_components_obj.verify_entry('searchValue', 'searchButton')"
                             >
-                            <button onclick="linkedQueue.search(document.getElementById('searchValue').value)">
+                            <button id="searchButton" onclick="linkedQueue.search(document.getElementById('searchValue').value)">
                                 Pesquisar
                             </button>
                         </div>
@@ -70,13 +76,14 @@
                         </div>
 
                 </div>
-                </main>         
+                </main>
              </main>
 
         </div>
-    </div> 
-    
+    </div>
+
     <script src="./objects/LinkedQueue.js"></script>
+    <script src="./objects/ManipulateWindowComponents.js"></script>
 
 </body>
 </html>

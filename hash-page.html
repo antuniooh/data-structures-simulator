@@ -30,17 +30,21 @@
                 <div class="buttons">
                         <div class="field">
                             <input
+                            name="insert"
                             type="number"
-                            name="key"
-                            placeholder="Valor"
+                            placeholder="chave"
                             id="insertKey"
+                            oninput="manipulate_window_components_obj.verify_multiple_entry('insertKey', 'insertValue', 'insertButton')"
+                            value=10
                             >
                             <input
                             name="insert"
                             placeholder="Valor"
                             id="insertValue"
+                            oninput="manipulate_window_components_obj.verify_multiple_entry('insertKey', 'insertValue', 'insertButton')"
+                            value="abc"
                             >
-                            <button onclick="test_obj.insert(document.getElementById('insertKey').value, document.getElementById('insertValue').value)">
+                            <button id="insertButton" onclick="hash_table_obj.insert(document.getElementById('insertKey').value, document.getElementById('insertValue').value)">
                                 Inserir
                             </button>
                         </div>
@@ -49,9 +53,11 @@
                             <input
                             type="number"
                             id="removeKey"
-                            placeholder="Valor"
+                            placeholder="chave"
+                            oninput="manipulate_window_components_obj.verify_entry('removeKey', 'removeButton')"
+                            value=10
                             >
-                            <button onclick="test_obj.remove(document.getElementById('removeKey').value)">
+                            <button id="removeButton" onclick="hash_table_obj.remove(document.getElementById('removeKey').value)">
                                 Remover
                             </button>
                         </div>
@@ -60,15 +66,17 @@
                             <input
                             type="number"
                             id="searchKey"
-                            placeholder="Valor"
+                            placeholder="chave"
+                            oninput="manipulate_window_components_obj.verify_entry('searchKey', 'searchButton')"
+                            value=10
                             >
-                            <button onclick="test_obj.search(document.getElementById('searchKey').value)">
+                            <button id="searchButton" onclick="hash_table_obj.search(document.getElementById('searchKey').value)">
                                 Pesquisar
                             </button>
                         </div>
 
                         <div class="field">
-                            <button style="border-radius: 8px 8px 8px 8px"; onclick="test_obj.clear()">
+                            <button style="border-radius: 8px 8px 8px 8px"; onclick="hash_table_obj.clear()">
                                 Clear
                             </button>
                         </div>
@@ -81,6 +89,7 @@
     </div>
 
     <script src="./objects/HashTable.js"></script>
+    <script src="./objects/ManipulateWindowComponents.js"></script>
 
 </body>
 </html>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estrutura | Static Queue</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Ubuntu:wght@700&display=swap" rel="stylesheet">    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Ubuntu:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/home.css">
     <link rel="stylesheet" href="styles/responsive.css">
@@ -29,54 +29,61 @@
                 <canvas id="canvas" onclick="staticQueue.print()"></canvas>
                 <div class="buttons">
                         <div class="field">
-                            <input 
-                            type="number" 
+                            <input
+                            type="number"
                             name="search"
                             placeholder="Valor"
                             id="insertValue"
+                            value=256
+                            oninput="manipulate_window_components_obj.verify_entry('insertValue', 'insertButton')"
                             >
-                            <button onclick="staticQueue.insert(document.getElementById('insertValue').value)">
+                            <button id="insertButton" onclick="staticQueue.insert(document.getElementById('insertValue').value)">
                                 Inserir
                             </button>
                         </div>
 
                         <div class="field">
-                            <input 
-                            type="number" 
+                            <input
+                            type="number"
                             placeholder="Valor"
                             id="removeValue"
+                            value=256
+                            oninput="manipulate_window_components_obj.verify_entry('removeValue', 'removeButton')"
                             >
-                            <button onclick="staticQueue.remove(document.getElementById('removeValue').value)">
+                            <button id="removeButton" onclick="staticQueue.remove(document.getElementById('removeValue').value)">
                                 Remover
                             </button>
                         </div>
 
                         <div class="field" >
-                            <input 
-                            type="number" 
+                            <input
+                            type="number"
                             placeholder="Valor"
                             id="searchValue"
+                            value=256
+                            oninput="manipulate_window_components_obj.verify_entry('searchValue', 'searchButton')"
                             >
-                            <button onclick="staticQueue.search(document.getElementById('searchValue').value)">
+                            <button id="searchButton" onclick="staticQueue.search(document.getElementById('searchValue').value)">
                                 Pesquisar
                             </button>
                         </div>
 
                         <div class="field">
-                            <button style = "border-radius: 8px 8px 8px 8px;" 
+                            <button style = "border-radius: 8px 8px 8px 8px;"
                             onclick="staticQueue.clear()">
                                 Clear
                             </button>
                         </div>
 
                 </div>
-                </main>         
+                </main>
              </main>
 
         </div>
-    </div> 
-    
+    </div>
+
     <script src="./objects/StaticQueue.js"></script>
+    <script src="./objects/ManipulateWindowComponents.js"></script>
 
 </body>
 </html>
