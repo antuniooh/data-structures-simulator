@@ -15,7 +15,8 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.4.tar.gz",
     "react-native-web": "~0.13.12",
     "expo-constants": "~9.2.0",
-    "react-native-paper": "3.6.0"
+    "react-native-paper": "3.6.0",
+    "expo-2d-context": "*"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"

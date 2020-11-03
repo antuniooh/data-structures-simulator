@@ -6,7 +6,8 @@ export default class Header extends React.Component{
         return(
            <View style = {styles.header}>
             <Image
-                  source={require('../assets/logo.svg')}
+                  source={require('../assets/logo.png')}
+                  style={styles.image}
                   />           
             </View>
         );
@@ -19,5 +20,9 @@ const styles= StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#070d59',
     justifyContent: 'center',
+  },
+  image:{
+    height:'36px',
+    width:'36px'
   }
 });
