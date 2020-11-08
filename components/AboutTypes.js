@@ -45,10 +45,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     margin: 'auto',
-  },
+    alignItems:'center',
+    justifyContent:'center',
+    marginTop:50,
+ },
   box: {
-    width: '50%',
+    marginTop:50,
+    width: '100%',
     height: '50%',
     padding: 5,
-  },
+  }
 });
