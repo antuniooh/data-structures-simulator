@@ -57,7 +57,7 @@ class HashTable {
             var tuple = oldArray[i];
             this.insert(tuple[0], tuple[1]);
         }
-    };
+    }
 }
 
 var hash_table_obj = new HashTable();

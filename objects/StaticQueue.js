@@ -56,6 +56,6 @@ class StaticQueue {
             console.log(this.elements[i])
     }
 
-};
+}
 
 const staticQueue = new StaticQueue(20);
