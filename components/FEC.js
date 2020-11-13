@@ -1,111 +1,88 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, Button, TextInput, AsyncStorage } from 'react-native';
-import estilos from '../estilo';
 import {
-  XYPlot, 
-  LineSeriesXYPlot,
-  XAxis,
-  YAxis,
-  VerticalGridLines,
-  HorizontalGridLines,
-  CustomSVGSeries
-  } from 'react-vis';
+  Text,
+  View,
+  StyleSheet,
+  Button,
+  TextInput,
+  AsyncStorage,
+} from 'react-native';
+import estilos from '../estilo';
+import StaticQueue from '../objects/StaticQueue';
+import { XYPlot, LineSeriesXYPlot, XAxis, YAxis } from 'react-vis';
+import { Network, Node, Edge } from 'react-vis-network';
 
-class example extends React.Component {
-  render(){
-  return (
-    <XYPlot width={300} height={300} getY={d => d.value}>
-      <VerticalGridLines />
-      <HorizontalGridLines />
-      <XAxis />
-      <YAxis />
-      <CustomSVGSeries
-        className="custom-marking"
-        customComponent="square"
-        data={[
-          {x: 1, value: 10, customComponent: 'circle', size: 10},
-          {x: 1.7, value: 12, size: 20, style: {stroke: 'red', fill: 'orange'}},
-          {x: 2, value: 5},
-          {x: 3, value: 15},
-          {
-            x: 2.5,
-            value: 7,
-            customComponent: (row, positionInPixels, globalStyle) => {
-              return (
-                <g className="inner-inner-component">
-                  <circle cx="0" cy="0" r={10} fill="green" />
-                  <text x={0} y={0}>
-                    <tspan x="0" y="0">{`x: ${positionInPixels.x}`}</tspan>
-                    <tspan x="0" y="1em">{`y: ${positionInPixels.y}`}</tspan>
-                  </text>
-                </g>
-              );
-            }
-          }
-        ]}
-      />
-    </XYPlot>
-  );
-  }
-}
-
-export default class Cadastro extends React.Component{
-  constructor(props){
+export default class Cadastro extends React.Component {
+  constructor(props) {
     super(props);
+    this.insertText=undefined
+    this.searchText=undefined
+    this.removeText=undefined
+    this.staticQueueObj = new StaticQueue(10)
   }
 
-  render(){
-    return(
+  render() {
+    return (
       <View style={estilos.container}>
-        <Text style={estilos.title}>Fila Estática Circular </Text>
-      <View style={estilos.rowStyle}>
-          <View style={estilos.columnStyle}>
-            <TextInput style={estilos.caixa}
-            onChangeText={(texto) =>this.setState({password:texto}) }
-            ></TextInput>
-            <Button 
-            title="Inserir"
-            onPress={() => this.leitura()}
-            style={estilos.appButtonContainer}> </Button>
-          </View>
+        <Text style={estilos.title}>Fila Estatica Circular </Text>
 
-          <View style={estilos.columnStyle}>
-            <TextInput style={estilos.caixa}
-            onChangeText={(texto) =>this.setState({password:texto}) }
-            ></TextInput>
-            <Button 
-            style={estilos.appButtonContainer}
-            title="Inserir"
-            onPress={() => this.leitura()}>
-             </Button>
-          </View>
+        <Network>
+          <Node id="vader" label="Darth" />
+          <Node id="luke" label="Luke" />
+          <Node id="leia" label="Leia" />
 
+          <Edge id="1" from="vader" to="luke" />
+          <Edge id="2" from="vader" to="leia" />
+        </Network>
+
+        <View style={estilos.rowStyle}>
           <View style={estilos.columnStyle}>
-            <TextInput style={estilos.caixa}
-            onChangeText={(texto) =>this.setState({password:texto}) }
-            ></TextInput>
-            <Button 
-            style={estilos.appButtonContainer}
-            title="Inserir"
-            onPress={() => this.leitura()}>
+            <TextInput
+              style={estilos.caixa}
+              onChangeText={(texto) =>
+                this.setState({ insertText: texto })
+              }></TextInput>
+            <Button
+              title="Inserir"
+              onPress={() => this.staticQueueObj.insert(this.insertText)}
+              style={estilos.appButtonContainer}>
             </Button>
           </View>
 
           <View style={estilos.columnStyle}>
-            <TextInput style={estilos.caixa}
-            onChangeText={(texto) =>this.setState({password:texto}) }
-            ></TextInput>
-           <Button 
-            title="Inserir"
-            onPress={() => this.leitura()}
-            style={estilos.appButtonContainer}> </Button>
+            <TextInput
+              style={estilos.caixa}
+              onChangeText={(texto) =>
+                this.setState({ removeText: texto })
+              }></TextInput>
+            <Button
+              style={estilos.appButtonContainer}
+              title="Remover"
+              onPress={() => this.staticQueueObj.remove(this.removeText)}></Button>
           </View>
-          
-      </View>
 
+          <View style={estilos.columnStyle}>
+            <TextInput
+              style={estilos.caixa}
+              onChangeText={(texto) =>
+                this.setState({ searchText: texto })
+              }></TextInput>
+            <Button
+              style={estilos.appButtonContainer}
+              title="Pesquisar"
+              onPress={() => this.staticQueueObj.search(this.searchText)}></Button>
+          </View>
+
+          <View style={estilos.columnStyle}>
+            <Button
+              title="Limpar"
+              onPress={() => this.staticQueueObj.clear()}
+              style={estilos.appButtonContainer}>
+              {' '}
+            </Button>
+          </View>
+        </View>
       </View>
-    )
+    );
   }
 }
-
-

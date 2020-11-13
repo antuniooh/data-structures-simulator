@@ -1,4 +1,4 @@
-class StaticQueue {
+export default class StaticQueue {
     constructor(max) {
         this.elements = [];
         this.max = max
@@ -40,6 +40,7 @@ class StaticQueue {
     clear() {
         this.i = this.f;
         this.elements = [];
+        alert("Deu a limpada")
     }
 
     search(value) {
@@ -57,5 +58,3 @@ class StaticQueue {
     }
 
 }
-
-const staticQueue = new StaticQueue(20);

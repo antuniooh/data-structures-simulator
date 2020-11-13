@@ -4,7 +4,7 @@ function Node() {
     this.next = null;
 }
 
-class LinkedQueue {
+export default class LinkedQueue {
     constructor() {
         this.first = null;
         this.last = null;
@@ -106,6 +106,4 @@ class LinkedQueue {
         }
     }
 }
-
-const linkedQueue = new LinkedQueue();
 

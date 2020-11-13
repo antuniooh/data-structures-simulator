@@ -59,5 +59,3 @@ class HashTable {
         }
     }
 }
-
-var hash_table_obj = new HashTable();
