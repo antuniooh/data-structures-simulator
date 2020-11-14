@@ -1,22 +1,15 @@
 import * as React from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  Button,
-  TextInput,
-  AsyncStorage,
-} from 'react-native';
+import { Text, View, Button, TextInput } from 'react-native';
 import estilos from '../estilo';
-import LinkedQueue from "../objects/LinkedQueue"
+import LinkedQueue from '../objects/LinkedQueue';
 
 export default class LDDE extends React.Component {
   constructor(props) {
     super(props);
-    this.insertText=undefined
-    this.searchText=undefined
-    this.removeText=undefined
-    this.linkedQueueObj = new LinkedQueue()
+    this.insertText = undefined;
+    this.searchText = undefined;
+    this.removeText = undefined;
+    this.linkedQueueObj = new LinkedQueue();
   }
 
   render() {
@@ -33,9 +26,8 @@ export default class LDDE extends React.Component {
               }></TextInput>
             <Button
               title="Inserir"
-              onPress={()=>this.linkedQueueObj.insert(this.insertText)}
-              style={estilos.buttons}>
-            </Button>
+              onPress={() => this.linkedQueueObj.insert(this.insertText)}
+              style={estilos.buttons}></Button>
           </View>
 
           <View style={estilos.columnStyle}>
