@@ -1,46 +1,39 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const estilos = StyleSheet.create({
-  container:{
+  container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor:"#102559"
+    backgroundColor: '#102559',
   },
-  appButtonContainer:{
-    elevation: 8,
-    backgroundColor: "#009688",
-    borderRadius: 10,
-    paddingVertical: 10,
-    paddingHorizontal: 12
-  },
-  caixa:{
-    height:40,
-    borderColor:"blue",
-    borderWidth: 2,
+  caixa: {
+    height: 40,
+    backgroundColor: 'white',
     fontSize: 18,
-    width: 60
+    borderRadius: 8,
+    textDecorationStyle: 'none',
+    width: 60,
+    border: 'none',
+    outline: 'none',
   },
-  menuStyle: { 
-  backgroundColor: 'green', 
-  borderWidth: 1, 
-  borderBottomColor: 'white' ,
-  color:'red'
+  menuStyle: {
+    backgroundColor: 'green',
+    borderWidth: 1,
+    borderBottomColor: 'white',
+    color: 'red',
   },
-  title:{
-    color:'white',
-    fontFamily: 'Ubuntu, sans-serif',
-    fontSize: '20px',
-    textAlign:'center',
-    margin: 10
+  title: {
+    color: 'white',
+    fontSize: 20,
+    textAlign: 'center',
   },
-  rowStyle:{
-    flexDirection:'row',
+  rowStyle: {
+    flexDirection: 'row',
   },
-  columnStyle:{
-    flexDirection:'column',
+  columnStyle: {
+    flexDirection: 'column',
   },
-
-})
+});
 
 export default estilos;

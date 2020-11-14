@@ -1,4 +1,4 @@
-class HashTable {
+export default class HashTable {
     constructor() {
         this._storage = [];
         this._count = 0;

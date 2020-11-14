@@ -1,59 +1,55 @@
 import * as React from 'react';
 import { Text, View, StyleSheet, Button, TextInput, AsyncStorage } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { createStackNavigator} from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import ListTypes from "./components/AboutTypes";
-import LDDE from "./components/LDDE";
-import Cadastro from "./components/FEC";
-import List from "./components/ScreenInfo";
-import Hash from "./components/Hash";
 
 import estilos from './estilo';
+import ListTypes from './components/ListTypes';
+import Hash from './components/Hash';
+import FEC from './components/FEC';
+import LDDE from './components/LDDE';
 
-const Stack = createBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
-export default class App extends React.Component{
+class MyTabs extends React.Component{
   render(){
-    return(
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="LDDE" component={LDDE}
-          options={{
-            tabBarLabel:"LDDE",
-            tabBarIcon: ({cor, size}) => (
-              <MaterialCommunityIcons name = "arrow-right" color={"gray"} size={size}/>
-            )
-          }}
-          />
-          <Stack.Screen name="FEC" component={Cadastro}
-           options={{
+    return (
+        <Tab.Navigator>
+            <Tab.Screen name="Estruturas" component={ListTypes}
+            options={{
             tabBarLabel:"FEC",
             tabBarIcon: ({cor, size}) => (
               <MaterialCommunityIcons name = "circle" color={"gray"} size={size}/>
             )
           }}
           />
-          <Stack.Screen name="Hash" component={Hash}
-           options={{
-            tabBarLabel:"Hash",
+            <Tab.Screen name="Informações" component={FEC} 
+            options={{
+            tabBarLabel:"FEC",
             tabBarIcon: ({cor, size}) => (
-              <MaterialCommunityIcons name = "table" color={"gray"} size={size}/>
+              <MaterialCommunityIcons name = "circle" color={"gray"} size={size}/>
             )
           }}
           />
-          <Stack.Screen name="About" component={List}
-           options={{
-            tabBarLabel:"Informação",
-            tabBarIcon: ({cor, size}) => (
-              <MaterialCommunityIcons name = "help" color={"gray"} size={size}/>
-            )
-          }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+        </Tab.Navigator>
     );
   }
+}
+
+const Stack = createStackNavigator();
+
+export default function App() {
+    return (
+        <NavigationContainer>
+            <Stack.Navigator initialRouteName="Home">
+                <Stack.Screen name="Home" component={MyTabs} />
+                <Stack.Screen name="FEC" component={FEC} />
+                <Stack.Screen name="LDDE" component={LDDE} />
+                <Stack.Screen name="Hash" component={Hash} />
+            </Stack.Navigator>
+        </NavigationContainer>
+    );
 }

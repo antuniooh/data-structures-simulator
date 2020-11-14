@@ -17,7 +17,6 @@ export default class FEC extends React.Component {
     return (
       <View style={estilos.container}>
         <Text style={estilos.title}>Fila Estatica Circular </Text>
-        <Example></Example>
         <View style={estilos.rowStyle}>
           <View style={estilos.columnStyle}>
             <TextInput
