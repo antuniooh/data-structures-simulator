@@ -7,7 +7,6 @@ export default class StaticQueue {
     }
 
     insert(element) {
-
         if ((this.f + 1) % this.max == this.i) {
             alert("Amigo, parece que sua inserção não teve sucesso :(")
             return false;

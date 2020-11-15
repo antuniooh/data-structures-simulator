@@ -1,11 +1,17 @@
-import React, { PureComponent } from 'react';
-import { Svg, G, Line, Rect, Text } from 'react-native-svg';
+import React, { Component } from 'react';
+import Canvas from 'react-native-canvas';
 
-const GRAPH_MARGIN = 20;
-const colors = {
-  axis: '#E4E4E4',
-};
+export default class Example extends Component {
 
-export default class Example extends PureComponent {
-  
+  handleCanvas = (canvas) => {
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'purple';
+    ctx.fillRect(0, 0, 100, 100);
+  }
+
+  render() {
+    return (
+      <Canvas ref={this.handleCanvas}/>
+    )
+  }
 }

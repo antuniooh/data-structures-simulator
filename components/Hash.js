@@ -9,7 +9,7 @@ export default class Hash extends React.Component {
     this.insertText = undefined;
     this.searchText = undefined;
     this.removeText = undefined;
-    this.hashTableObj = HashTable();
+    this.hashTableObj = new HashTable();
   }
 
   render() {

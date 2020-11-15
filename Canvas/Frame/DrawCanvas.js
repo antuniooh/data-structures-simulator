@@ -1,63 +1,159 @@
-import React, { Component } from 'react';
-import Canvas from 'react-native-canvas';
+import React, { Component, Image } from 'react';
+import Canvas, { Image as CanvasImage } from 'react-native-canvas';
 import LinkedQueue from '../../objects/LinkedQueue';
 import StaticQueue from '../../objects/StaticQueue';
 import HashTable from '../../objects/HashTable';
 
+var dataPositionsStaticQueue = [
+  { x: 220, y: 210, angle: 0.785398, value: null },
+  { x: 160, y: 260, angle: 1.5708, value: null },
+  { x: 87, y: 260, angle: 2.35619, value: null },
+  { x: 20, y: 210, angle: 3.14159, value: null },
+  { x: 20, y: 130, angle: 3.92699, value: null },
+  { x: 87, y: 70, angle: 4.71239, value: null },
+  { x: 160, y: 70, angle: 5.49779, value: null },
+  { x: 220, y: 130, angle: 6.28319, value: null },
+];
+
+var sizeStaticQueue = 0;
+
 export default class DrawCanvas {
   constructor(canvas, structure) {
-    if (structure == 'ldde') {
-      this.structureObj = new LinkedQueue();
-    } else if (structure == 'fec') {
-      this.structureObj = new StaticQueue();
-    } else if (structure == 'hash') {
-      this.structureObj = new HashTable();
-    }
+    this.structureObj = structure;
 
-    this.array_elements = [];
-    this.square_size = { width: 20, heigth: 20 };
-    this.canvas_size = { height: 600, width: 600 };
+    this.arrayElements = [];
+
+    this.squareSize = { width: 40, heigth: 40 };
     this.canvas = canvas;
-    this.canvas.height = this.canvas_size.height;
-    this.canvas.width = this.canvas_size.width;
+    this.canvas.height = 300;
+    this.canvas.width = 300;
+
     this.ctx = canvas.getContext('2d');
-    this.draw_canvas = this.draw_canvas.bind(this);
-    this.square_insert = this.square_insert.bind(this);
+
+    this.drawBackgroundCanvas = this.drawBackgroundCanvas.bind(this);
+    this.squareInsert = this.squareInsert.bind(this);
+
+    this.insertStaticQueue = this.insertStaticQueue.bind(this);
+    this.removeStaticQueue = this.removeStaticQueue.bind(this);
+    this.searchStaticQueue = this.searchStaticQueue.bind(this);
+    this.clearStaticQueue = this.clearStaticQueue.bind(this);
+    this.drawStaticQueue = this.drawStaticQueue.bind(this);
+
+    this.clearCanvas = this.clearCanvas.bind(this);
   }
 
-  draw_canvas(posy, posx, width, height) {
+  clearCanvas() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  }
+
+  insertStaticQueue(valueReceive) {
+    if (this.structureObj.insert(valueReceive)) {
+      dataPositionsStaticQueue[sizeStaticQueue].value = valueReceive;
+      sizeStaticQueue++;
+    }
+    this.drawStaticQueue();
+  }
+
+  drawStaticQueue() {
+    this.clearCanvas();
+    var radius = 100;
+    var anglePadding = (1 * Math.PI) / 180;
+
+    this.ctx.lineWidth = 90;
+
+    for (var i = 0; i < dataPositionsStaticQueue.length; i++) {
+      if (dataPositionsStaticQueue[i].value != null) {
+        var startAngle = 0;
+        if (i > 0) {
+          startAngle = dataPositionsStaticQueue[i - 1].angle;
+        }
+
+        this.ctx.strokeStyle = 'black';
+        this.ctx.beginPath();
+        this.ctx.arc(
+          this.canvas.width / 2,
+          this.canvas.height / 2,
+          radius,
+          startAngle,
+          dataPositionsStaticQueue[i].angle - anglePadding
+        );
+        this.ctx.stroke();
+
+        this.ctx.beginPath();
+        this.ctx.font = 'bold 40px verdana, sans-serif';
+        this.ctx.fillStyle = 'white';
+
+        this.ctx.fillText(
+          dataPositionsStaticQueue[i].value,
+          dataPositionsStaticQueue[i].x,
+          dataPositionsStaticQueue[i].y,
+          50
+        );
+        this.ctx.stroke();
+      }
+    }
+  }
+
+  removeStaticQueue() {
+    if (this.structureObj.remove()) {
+      dataPositionsStaticQueue[sizeStaticQueue - 1].value = null;
+      sizeStaticQueue--;
+    }
+    this.drawStaticQueue();
+  }
+  searchStaticQueue(valueReceive) {
+    if (this.structureObj.search(valueReceive)) {
+      dataPositionsStaticQueue[sizeStaticQueue].value = valueReceive;
+      sizeStaticQueue++;
+    }
+    this.drawStaticQueue();
+  }
+  clearStaticQueue() {
+    if (this.structureObj.clear()) {
+      for (var i = 0; i < sizeStaticQueue; i++) {
+        dataPositionsStaticQueue[i].value = null;
+        sizeStaticQueue = 0;
+      }
+    }
+    this.drawStaticQueue();
+  }
+
+  drawBackgroundCanvas(posy, posx, width, height) {
     this.ctx.fillRect(posy, posx, width, height);
   }
 
   draw_square(posy, posx) {
-    this.ctx.fillRect(posy, posx, this.square_size.width, this.square_size.height);
+    this.ctx.fillStyle = 'purple';
+    this.ctx.fillRect(0, 0, this.squareSize.width, this.squareSize.height);
+    this.atualizeCanvas();
   }
 
-  square_insert(value) {
-    if (this.array_elements.length == 0) {
+  squareInsert(value) {
+    if (this.arrayElements.length == 0) {
       this.draw_square(0, 0);
-      this.array_elements.push({ x: 0, y: 0, valor: value });
+      this.arrayElements.push({ x: 0, y: 0, valor: value });
     } else {
-      let x = this.array_elements[this.array_elements.length - 1].x;
-      let y = this.array_elements[this.array_elements.length - 1].y;
-      if (y + this.square_size.width >= this.canvas_size.width) {
+      let x = this.arrayElements[this.arrayElements.length - 1].x;
+      let y = this.arrayElements[this.arrayElements.length - 1].y;
+      if (y + this.squareSize.width >= this.canvasSize.width) {
         this.draw_square(
           y + 30,
           x + 30,
-          this.square_size.width,
-          this.square_size.heigth
+          this.squareSize.width,
+          this.squareSize.heigth
         );
-        this.array_elements.push({ x: x + 30, y: y + 30, value });
+        this.arrayElements.push({ x: x + 30, y: y + 30, value });
       } else {
         this.draw_square(
           y + 30,
           x,
-          this.square_size.width,
-          this.square_size.heigth
+          this.squareSize.width,
+          this.squareSize.heigth
         );
-        this.array_elements.push({ x: x + 30, y: y, value });
+        this.arrayElements.push({ x: x + 30, y: y, value });
       }
     }
+    this.atualizeCanvas();
   }
 
   draw_arrow(context, fromx, fromy, tox, toy) {
@@ -87,9 +183,9 @@ export default class DrawCanvas {
   }
 
   insert_ldde(value) {
-    if (this.array_elements > 0) {
-      let x = this.array_elements[this.array_elements.length - 1].x;
-      let y = this.array_elements[this.array_elements.length - 1].y;
+    if (this.arrayElements > 0) {
+      let x = this.arrayElements[this.arrayElements.length - 1].x;
+      let y = this.arrayElements[this.arrayElements.length - 1].y;
       draw_new_ldde_node(x, y, value);
     } else {
       draw_new_ldde_node(0, 0, value);
