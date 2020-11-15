@@ -8,13 +8,11 @@ export default class StaticQueue {
 
     insert(element) {
         if ((this.f + 1) % this.max == this.i) {
-            alert("Amigo, parece que sua inserção não teve sucesso :(")
             return false;
         }
 
         this.elements[this.f] = element
         this.f = (this.f + 1) % this.max
-        alert("Amigo, parece que sua inserção teve sucesso :)")
         return true;
     }
 
@@ -44,10 +42,6 @@ export default class StaticQueue {
 
     search(value) {
         let finded = (this.elements.indexOf(value) != -1);
-        if (finded)
-            alert("Amigo, parece que sua procura teve sucesso :)")
-        else
-            alert("Amigo, parece que sua procura não teve sucesso :(")
         return finded;
     }
     print() {

@@ -11,7 +11,6 @@ export default class FEC extends React.Component {
     super(props);
     this.insertText = undefined;
     this.searchText = undefined;
-    this.removeText = undefined;
     this.managerCanvas = undefined;
   }
 
@@ -40,21 +39,21 @@ export default class FEC extends React.Component {
             <Button
               title="Inserir"
               onPress={() =>
-                this.state.managerCanvas.insertStaticQueue(this.state.insertText)
+                this.state.managerCanvas.insertStaticQueue(
+                  this.state.insertText
+                )
               }
               style={estilos.appButtonContainer}></Button>
           </View>
 
           <View style={estilos.columnStyle}>
-            <TextInput
-              style={estilos.caixa}
-              onChangeText={(texto) =>
-                this.setState({ removeText: texto })
-              }></TextInput>
+            <TextInput style={estilos.caixa}></TextInput>
             <Button
               style={estilos.appButtonContainer}
               title="Remover"
-              onPress={() => this.state.managerCanvas.removeStaticQueue()}></Button>
+              onPress={() =>
+                this.state.managerCanvas.removeStaticQueue()
+              }></Button>
           </View>
 
           <View style={estilos.columnStyle}>
@@ -67,16 +66,17 @@ export default class FEC extends React.Component {
               style={estilos.appButtonContainer}
               title="Pesquisar"
               onPress={() =>
-                this.managerCanvas.searchStaticQueue(this.insertText)
+                this.state.managerCanvas.searchStaticQueue(
+                  this.state.searchText
+                )
               }></Button>
           </View>
 
           <View style={estilos.columnStyle}>
             <Button
               title="Limpar"
-              onPress={() => this.managerCanvas.clearStaticQueue()}
-              style={estilos.appButtonContainer}>
-            </Button>
+              onPress={() => this.state.managerCanvas.clearStaticQueue()}
+              style={estilos.appButtonContainer}></Button>
           </View>
         </View>
       </View>

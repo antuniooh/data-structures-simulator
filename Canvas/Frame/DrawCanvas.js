@@ -5,14 +5,14 @@ import StaticQueue from '../../objects/StaticQueue';
 import HashTable from '../../objects/HashTable';
 
 var dataPositionsStaticQueue = [
-  { x: 220, y: 210, angle: 0.785398, value: null },
-  { x: 160, y: 260, angle: 1.5708, value: null },
-  { x: 87, y: 260, angle: 2.35619, value: null },
-  { x: 20, y: 210, angle: 3.14159, value: null },
-  { x: 20, y: 130, angle: 3.92699, value: null },
-  { x: 87, y: 70, angle: 4.71239, value: null },
-  { x: 160, y: 70, angle: 5.49779, value: null },
-  { x: 220, y: 130, angle: 6.28319, value: null },
+  { x: 220, y: 210, angle: 0.785398, value: null, color: 'black' },
+  { x: 160, y: 260, angle: 1.5708, value: null, color: 'black' },
+  { x: 87, y: 260, angle: 2.35619, value: null, color: 'black' },
+  { x: 20, y: 210, angle: 3.14159, value: null, color: 'black' },
+  { x: 20, y: 130, angle: 3.92699, value: null, color: 'black' },
+  { x: 87, y: 70, angle: 4.71239, value: null, color: 'black' },
+  { x: 160, y: 70, angle: 5.49779, value: null, color: 'black' },
+  { x: 220, y: 130, angle: 6.28319, value: null, color: 'black' },
 ];
 
 var sizeStaticQueue = 0;
@@ -55,6 +55,8 @@ export default class DrawCanvas {
   }
 
   drawStaticQueue() {
+            alert('a');
+
     this.clearCanvas();
     var radius = 100;
     var anglePadding = (1 * Math.PI) / 180;
@@ -68,7 +70,7 @@ export default class DrawCanvas {
           startAngle = dataPositionsStaticQueue[i - 1].angle;
         }
 
-        this.ctx.strokeStyle = 'black';
+        this.ctx.strokeStyle = dataPositionsStaticQueue[i].color;
         this.ctx.beginPath();
         this.ctx.arc(
           this.canvas.width / 2,
@@ -101,19 +103,27 @@ export default class DrawCanvas {
     }
     this.drawStaticQueue();
   }
+
   searchStaticQueue(valueReceive) {
     if (this.structureObj.search(valueReceive)) {
-      dataPositionsStaticQueue[sizeStaticQueue].value = valueReceive;
-      sizeStaticQueue++;
+      for (var i = 0; i < sizeStaticQueue; i++) {
+        if (dataPositionsStaticQueue[i].value == valueReceive) {
+          dataPositionsStaticQueue[i].color = 'lightblue';
+          break;
+        } else dataPositionsStaticQueue[i].color = 'blue';
+
+        setTimeout(function () {
+          this.drawStaticQueue();
+        }, 5000);
+      }
     }
-    this.drawStaticQueue();
   }
   clearStaticQueue() {
     if (this.structureObj.clear()) {
       for (var i = 0; i < sizeStaticQueue; i++) {
         dataPositionsStaticQueue[i].value = null;
-        sizeStaticQueue = 0;
       }
+      sizeStaticQueue = 0;
     }
     this.drawStaticQueue();
   }
