@@ -18,7 +18,6 @@ export default class StaticQueue {
 
     remove(element = undefined) {
         if (this.f == this.i) {
-            alert("Amigo, parece que sua remoção não teve sucesso :(")
             return false;
         }
 
@@ -30,14 +29,13 @@ export default class StaticQueue {
 
         this.i = (this.i + 1) % this.max;
         this.elements.pop();
-        alert("Amigo, parece que sua remoção teve sucesso :)")
         return true
     }
 
     clear() {
         this.i = this.f;
         this.elements = [];
-        alert("Deu a limpada")
+        return true;
     }
 
     search(value) {

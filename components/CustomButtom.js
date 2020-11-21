@@ -1,43 +1,15 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  Dimensions,
-  StyleSheet,
-} from 'react-native';
+import {TouchableOpacity, Text} from 'react-native';
+import estilos from '../estilo';
 
-const width = Dimensions.get('window').width;
-const displayH = width.height;
+class Botao extends React.Component{
+  render(){
+    return(
+      <TouchableOpacity style={estilos.botao} onPress={this.props.onPress}>
+        <Text style={estilos.texto}>{this.props.children}</Text>
+      </TouchableOpacity>
+    );
+  }
+}
 
-const CustomButton = ({ text, onPress }) => {
-  return (
-    <TouchableOpacity onPress={onPress}>
-      <View style={styles.btnContainerStyle}>
-        <Text style={styles.btnTextStyle}> {text} </Text>
-      </View>
-    </TouchableOpacity>
-  );
-};
-
-const styles = StyleSheet.create({
-  btnContainerStyle: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#102559',
-    padding:10
-  },
-  btnTextStyle: {
-    color: '#ffffff',
-    fontSize: 16,
-    textAlign: 'center',
-    fontFamily: 'Quicksand-Medium',
-    elevation: 8,
-    backgroundColor: '#009688',
-    borderRadius: 10,
-    padding:50,
-  },
-});
-
-export default CustomButton;
+export default Botao;

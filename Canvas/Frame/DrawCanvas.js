@@ -4,6 +4,10 @@ import LinkedQueue from '../../objects/LinkedQueue';
 import StaticQueue from '../../objects/StaticQueue';
 import HashTable from '../../objects/HashTable';
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 var dataPositionsStaticQueue = [
   { x: 220, y: 210, angle: 0.785398, value: null, color: 'black' },
   { x: 160, y: 260, angle: 1.5708, value: null, color: 'black' },
@@ -39,6 +43,12 @@ export default class DrawCanvas {
     this.clearStaticQueue = this.clearStaticQueue.bind(this);
     this.drawStaticQueue = this.drawStaticQueue.bind(this);
 
+    this.insertDoubleLinked = this.insertDoubleLinked.bind(this);
+    this.removeDoubleLinked = this.removeDoubleLinked.bind(this);
+    this.searchDoubleLinked = this.searchDoubleLinked.bind(this);
+    this.clearDoubleLinked = this.clearDoubleLinked.bind(this);
+    this.drawDoubleLinked = this.drawDoubleLinked.bind(this);
+
     this.clearCanvas = this.clearCanvas.bind(this);
   }
 
@@ -47,16 +57,16 @@ export default class DrawCanvas {
   }
 
   insertStaticQueue(valueReceive) {
-    if (this.structureObj.insert(valueReceive)) {
-      dataPositionsStaticQueue[sizeStaticQueue].value = valueReceive;
-      sizeStaticQueue++;
+    if (valueReceive != '') {
+      if (this.structureObj.insert(valueReceive)) {
+        dataPositionsStaticQueue[sizeStaticQueue].value = valueReceive;
+        sizeStaticQueue++;
+        this.drawStaticQueue();
+      }
     }
-    this.drawStaticQueue();
   }
 
   drawStaticQueue() {
-            alert('a');
-
     this.clearCanvas();
     var radius = 100;
     var anglePadding = (1 * Math.PI) / 180;
@@ -100,21 +110,26 @@ export default class DrawCanvas {
     if (this.structureObj.remove()) {
       dataPositionsStaticQueue[sizeStaticQueue - 1].value = null;
       sizeStaticQueue--;
+      this.drawStaticQueue();
     }
-    this.drawStaticQueue();
   }
 
-  searchStaticQueue(valueReceive) {
+  async searchStaticQueue(valueReceive) {
     if (this.structureObj.search(valueReceive)) {
-      for (var i = 0; i < sizeStaticQueue; i++) {
+      for (let i = 0; i < sizeStaticQueue; i++) {
         if (dataPositionsStaticQueue[i].value == valueReceive) {
           dataPositionsStaticQueue[i].color = 'lightblue';
           break;
         } else dataPositionsStaticQueue[i].color = 'blue';
+        await sleep(1000);
+        this.drawStaticQueue();
+      }
+      await sleep(1000);
 
-        setTimeout(function () {
-          this.drawStaticQueue();
-        }, 5000);
+      this.drawStaticQueue();
+
+      for (let i = 0; i < sizeStaticQueue; i++) {
+        dataPositionsStaticQueue[i].color = 'black';
       }
     }
   }
@@ -128,6 +143,12 @@ export default class DrawCanvas {
     this.drawStaticQueue();
   }
 
+  insertDoubleLinked() {}
+  removeDoubleLinked() {}
+  searchDoubleLinked() {}
+  clearDoubleLinked() {}
+  drawDoubleLinked() {}
+  
   drawBackgroundCanvas(posy, posx, width, height) {
     this.ctx.fillRect(posy, posx, width, height);
   }

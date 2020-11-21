@@ -15,7 +15,6 @@ export default class Hash extends React.Component {
   render() {
     return (
       <View style={estilos.container}>
-        <Text style={estilos.title}>Tabela Hash </Text>
         <View style={estilos.rowStyle}>
           <View style={estilos.columnStyle}>
             <TextInput

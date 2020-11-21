@@ -25,6 +25,7 @@
     "react-native-canvas": "*",
     "react-native-screens": "~2.10.1",
     "react-native-webview": "10.7.0",
+    "react-native-elements": "*",
     "react-native-htmlview": "*",
     "@react-navigation/stack": "*",
     "react-native-reanimated": "~1.13.0",
@@ -35,7 +36,8 @@
     "react-native-gesture-handler": "~1.7.0",
     "@react-navigation/bottom-tabs": "*",
     "react-native-safe-area-context": "3.1.4",
-    "@react-native-community/masked-view": "0.1.10"
+    "@react-native-community/masked-view": "0.1.10",
+    "@expo-google-fonts/inter": "*"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"
