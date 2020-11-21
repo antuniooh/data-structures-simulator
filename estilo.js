@@ -17,6 +17,7 @@ const estilos = StyleSheet.create({
     width: 315,
     border: 'none',
     outline: 'none',
+    padding: 10,
   },
   caixaHash: {
     marginTop: 15,
@@ -31,6 +32,7 @@ const estilos = StyleSheet.create({
     width: 150,
     border: 'none',
     outline: 'none',
+    padding: 10,
   },
   menuStyle: {
     backgroundColor: 'green',
@@ -45,7 +47,7 @@ const estilos = StyleSheet.create({
   },
   rowStyle: {
     flexDirection: 'row',
-    padding:10
+    padding: 10,
   },
   columnStyle: {
     flexDirection: 'column',
@@ -57,7 +59,7 @@ const estilos = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 8,
     height: 40,
-    marginRight:5
+    marginRight: 5,
   },
   texto: {
     color: 'white',
@@ -71,24 +73,27 @@ const estilos = StyleSheet.create({
     width: '100%',
     backgroundColor: '#150940',
     alignItems: 'center',
+    marginTop: 5,
   },
   botaoHome: {
+    flexDirection: 'row',
     backgroundColor: '#F2B749',
-    width: '100%',
+    width: '95%',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 8,
-    height: 100,
+    height: 120,
     padding: 15,
-    marginBottom:15
+    marginBottom: 15,
   },
   textoHome: {
-    textAlign:'center',
+    textAlign: 'center',
     color: 'white',
     fontSize: 20,
-    fontWeight:"bold",
+    fontWeight: 'bold',
+    width: '55%',
   },
-  titleCards:{
+  titleCards: {
     fontSize: '36px',
     color: '#150940',
   },

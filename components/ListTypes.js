@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StatusBar, SafeAreaView } from 'react-native';
+import { StatusBar, SafeAreaView, Image } from 'react-native';
 import BotaoHome from './CustomButtonHome';
 import estilos from '../estilo';
 
