@@ -115,22 +115,21 @@ export default class DrawCanvas {
   }
 
   async searchStaticQueue(valueReceive) {
-    if (this.structureObj.search(valueReceive)) {
-      for (let i = 0; i < sizeStaticQueue; i++) {
-        if (dataPositionsStaticQueue[i].value == valueReceive) {
-          dataPositionsStaticQueue[i].color = 'lightblue';
-          break;
-        } else dataPositionsStaticQueue[i].color = 'blue';
-        await sleep(1000);
-        this.drawStaticQueue();
-      }
+    this.structureObj.search(valueReceive);
+    for (let i = 0; i < sizeStaticQueue; i++) {
+      if (dataPositionsStaticQueue[i].value == valueReceive) {
+        dataPositionsStaticQueue[i].color = 'green';
+        break;
+      } else dataPositionsStaticQueue[i].color = 'gray';
       await sleep(1000);
-
       this.drawStaticQueue();
+    }
+    await sleep(1000);
 
-      for (let i = 0; i < sizeStaticQueue; i++) {
-        dataPositionsStaticQueue[i].color = 'black';
-      }
+    this.drawStaticQueue();
+
+    for (let i = 0; i < sizeStaticQueue; i++) {
+      dataPositionsStaticQueue[i].color = 'black';
     }
   }
   clearStaticQueue() {
@@ -148,7 +147,7 @@ export default class DrawCanvas {
   searchDoubleLinked() {}
   clearDoubleLinked() {}
   drawDoubleLinked() {}
-  
+
   drawBackgroundCanvas(posy, posx, width, height) {
     this.ctx.fillRect(posy, posx, width, height);
   }

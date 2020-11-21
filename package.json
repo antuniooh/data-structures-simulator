@@ -29,6 +29,7 @@
     "react-native-htmlview": "*",
     "@react-navigation/stack": "*",
     "react-native-reanimated": "~1.13.0",
+    "@expo-google-fonts/inter": "*",
     "@react-navigation/drawer": "*",
     "@react-navigation/native": "*",
     "react-native-d3-tree-graph": "*",
@@ -36,8 +37,7 @@
     "react-native-gesture-handler": "~1.7.0",
     "@react-navigation/bottom-tabs": "*",
     "react-native-safe-area-context": "3.1.4",
-    "@react-native-community/masked-view": "0.1.10",
-    "@expo-google-fonts/inter": "*"
+    "@react-native-community/masked-view": "0.1.10"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"

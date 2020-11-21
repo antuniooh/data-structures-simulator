@@ -30,6 +30,7 @@ export default class FEC extends React.Component {
         <View style={estilos.rowStyle}>
           <TextInput
             style={estilos.caixa}
+            placeholder="Digite o número"
             keyboardType={'numeric'}
             onChangeText={(texto) =>
               this.setState({ text: texto })
