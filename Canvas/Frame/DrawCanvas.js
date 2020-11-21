@@ -176,11 +176,10 @@ export default class DrawCanvas {
     }
   }
 
-  drawSquareText(posx, posy, key, value, colorBackground, colorBorder) {
+  drawSquareText(posx, posy, key, value, colorBackground) {
     //this.ctx.rect(posx, posy, this.squareWidth, this.squareHeigth);
     //this.ctx.fill();
     //this.ctx.lineWidth = 2;
-    //this.ctx.strokeStyle = colorBorder;
     //this.ctx.stroke();
     this.ctx.fillStyle = colorBackground;
     this.ctx.fillRect(posx, posy, this.squareWidth, this.squareHeigth);
@@ -191,7 +190,6 @@ export default class DrawCanvas {
     //this.ctx.rect(posx + 65, posy, this.squareWidth, this.squareHeigth);
     //this.ctx.fill();
     //this.ctx.lineWidth = 2;
-    //this.ctx.strokeStyle = colorBorder;
     //this.ctx.stroke();
     this.ctx.fillStyle = colorBackground;
     this.ctx.fillRect(posx + 65, posy, this.squareWidth, this.squareHeigth);
@@ -199,25 +197,29 @@ export default class DrawCanvas {
     this.ctx.fillText(value, posx + 75, posy + 15);
   }
 
-  arrayIsEmpty(){
+  arrayIsEmpty() {
     let isEmpty = true;
-    if ( this.arrayElements.length == 0){
+    if (this.arrayElements.length == 0) {
       return true;
     }
-    for (let i = 0; i < this.arrayElements.length; i++){
-      if (this.arrayElements[i] != null){
+    for (let i = 0; i < this.arrayElements.length; i++) {
+      if (this.arrayElements[i] != null) {
         isEmpty = false;
       }
     }
     return isEmpty;
   }
 
-  sortByKey(){
-    if (!this.arrayIsEmpty()){
+  sortByKey() {
+    if (!this.arrayIsEmpty()) {
       let menor = null;
-      for (let i = 0; i < this.arrayElements.length-1; i++){
-        for (let j = i+1; j < this.arrayElements.length; j++){
-          if (this.arrayElements[i] != null && this.arrayElements[j] != null && this.arrayElements[i].y > this.arrayElements[j].y){
+      for (let i = 0; i < this.arrayElements.length - 1; i++) {
+        for (let j = i + 1; j < this.arrayElements.length; j++) {
+          if (
+            this.arrayElements[i] != null &&
+            this.arrayElements[j] != null &&
+            this.arrayElements[i].y > this.arrayElements[j].y
+          ) {
             let temp = this.arrayElements[i].y;
             this.arrayElements[i].y = this.arrayElements[j].y;
             this.arrayElements[j].y = temp;
@@ -225,7 +227,7 @@ export default class DrawCanvas {
         }
       }
     }
-    console.log(this.arrayElements);
+    //console.log(this.arrayElements);
   }
 
   insertHash(key, value) {
@@ -242,8 +244,16 @@ export default class DrawCanvas {
         if (this.arrayElements[hash_key]) {
           this.arrayElements[hash_key].value = value;
         } else {
-          let xArray = this.arrayElements[this.arrayElements.length - 1].x;
-          let yArray = this.arrayElements[this.arrayElements.length - 1].y;
+          let bigger = 0;
+          let bigger_hash = null;
+          for ( var i = 0; i < this.arrayElements.length; i++){
+            if (this.arrayElements[i] && this.arrayElements[i].y > bigger){
+              bigger = this.arrayElements[i].y
+              bigger_hash = this.arrayElements[i];
+            }
+          }
+          let xArray = bigger_hash.x;
+          let yArray = bigger_hash.y;
           this.arrayElements[hash_key] = {
             x: xArray,
             y: yArray + 40,
@@ -257,17 +267,24 @@ export default class DrawCanvas {
     }
   }
 
-  drawHash() {
+  drawHash(searchKey) {
     if (this.arrayElements.length > 0) {
       this.clearCanvas();
-      this.drawSquareText(80, 35, 'key', 'value', 'white', "black");
+      this.drawSquareText(80, 35, 'key', 'value', 'white');
       for (var i = 0; i < this.arrayElements.length; i++) {
         if (this.arrayElements[i] != null) {
           let x = this.arrayElements[i].x;
           let y = this.arrayElements[i].y;
           let key = this.arrayElements[i].key.toString();
           let value = this.arrayElements[i].value.toString();
-          this.drawSquareText(x, y, key, value, 'white', "black");
+          if (
+            typeof searchKey !== 'undefined' &&
+            this.arrayElements[i].key === searchKey
+          ) {
+            this.drawSquareText(x, y, key, value, 'green');
+          } else {
+            this.drawSquareText(x, y, key, value, 'white');
+          }
         }
       }
     }
@@ -277,33 +294,44 @@ export default class DrawCanvas {
     let hash_key = this.structureObj.hash(key);
     if (this.arrayElements[hash_key]) {
       alert('O valor ' + key + 'foi achado');
-      this.ctx.drawSquareText(
-        this.arrayElements[hash_key].x,
-        this.arrayElements[hash_key].y,
-        this.arrayElements[hash_key].key.toString(),
-        this.arrayElements[hash_key].value.toString(),
-        "white",
-        'green'
-      );
+      this.drawHash(key);
+    } else {
+      alert('A chave ' + key + ' nao existe');
     }
   }
 
   removeHash(key) {
     console.log(this.arrayElements);
     let hash_key = this.structureObj.hash(key);
-    let last = this.arrayElements[hash_key];
-    if (this.arrayElements[hash_key]) {
-      if (this.arrayElements.length > 0 && this.arrayElements.length > hash_key) {
-        for (let i = hash_key+1; i < this.arrayElements.length; i++) {
-          if (this.arrayElements[i] != null) {
-            this.arrayElements[i].y = last.y;
-            last = this.arrayElements[i];
+    let last = null;
+    if (this.structureObj.remove(key)) {
+      if (
+        !this.arrayIsEmpty() &&
+        this.structureObj.getSize() > 1 &&
+        this.arrayElements[hash_key]
+      ) {
+        if (this.arrayElements.length > hash_key) {
+          console.log("Entrou no 1");
+          for (var i = this.arrayElements.length - 1; i > hash_key; i--) {
+            for (var j = i - 1; j > hash_key; j--){
+              if (this.arrayElements[j] != null){
+                break;
+              }
+            }
+            if (this.arrayElements[i] != null){
+              this.arrayElements[i].y = this.arrayElements[j].y;
+            }
           }
         }
+        this.arrayElements[hash_key] = null;
+        console.log(this.arrayElements);
+      } else if (this.arrayElements[hash_key]) {
+        console.log('Entrou no else if');
+        this.arrayElements[hash_key] = null;
       }
-      this.arrayElements[hash_key] = null;
-      this.sortByKey();
       this.drawHash();
+    } else {
+      alert('Nao encontrou para remover');
     }
   }
 
