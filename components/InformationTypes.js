@@ -17,11 +17,13 @@ export default class InformationTypes extends React.Component {
         <ScrollView
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}>
-          <Card>
-            <Card.Title>Fila Estática Circular</Card.Title>
+          <Card containerStyle={estilos.card}>
+            <Card.Title style={estilos.titleCard}>
+              Fila Estática Circular
+            </Card.Title>
             <Card.Divider />
-            <Card.Image source={require('../assets/fec.png')} />
-            <Text style={{ marginBottom: 10 }}>
+            <Card.Image source={require('../assets/home-circle.png')} />
+            <Text style={estilos.textoCard}>
               Um buffer circular, fila circular, buffer cíclico ou buffer de
               anel é uma estrutura de dados que usa um único buffer de tamanho
               fixo como se estivesse conectado de ponta a ponta. Essa estrutura
@@ -34,11 +36,15 @@ export default class InformationTypes extends React.Component {
             </Text>
           </Card>
 
-          <Card>
-            <Card.Title>Lista Dinâmica Duplamente Encadeada</Card.Title>
+           <Card containerStyle={estilos.card}>
+
+            <Card.Title style={estilos.titleCard}>
+              Lista Dinâmica Duplamente Encadeada
+            </Card.Title>
             <Card.Divider />
-            <Card.Image source={require('../assets/ldde.png')} />
-            <Text style={{ marginBottom: 10 }}>
+            <Card.Image source={require('../assets/home-ldde.png')} />
+            <Text style={estilos.textoCard}>
+              {' '}
               Em ciência da computação, uma lista duplamente ligada (ou lista
               duplamente encadeada) é uma estrutura de dados ligada que consiste
               de um conjunto de registros sequencialmente ligados chamados de
@@ -56,11 +62,13 @@ export default class InformationTypes extends React.Component {
             </Text>
           </Card>
 
-          <Card>
-            <Card.Title>Tabela Hash</Card.Title>
+          <Card containerStyle={estilos.card}>
+
+            <Card.Title style={estilos.titleCard}>Tabela Hash</Card.Title>
             <Card.Divider />
-            <Card.Image source={require('../assets/hash.png')} />
-            <Text style={{ marginBottom: 10 }}>
+            <Card.Image source={require('../assets/home-hash.png')} />
+            <Text style={estilos.textoCard}>
+              {' '}
               Em ciência da computação, uma tabela de dispersão (também
               conhecida por tabela de espalhamento ou tabela hash, do inglês
               hash) é uma estrutura de dados especial, que associa chaves de

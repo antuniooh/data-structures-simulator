@@ -17,7 +17,7 @@ export default class FEC extends React.Component {
   handleCanvas = (canvasReceive) => {
     if (canvasReceive != null) {
       this.setState({
-        managerCanvas: new DrawCanvas(canvasReceive, new StaticQueue(8)),
+        managerCanvas: new DrawCanvas(canvasReceive, new StaticQueue(9)),
       });
     }
   };

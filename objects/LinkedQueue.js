@@ -38,13 +38,11 @@ export default class LinkedQueue {
         novo.previous = ptrAnt;
 
         this.size++;
-        alert("Amigo, parece que sua inserção teve sucesso :)")
         return true;
     }
 
     remove(value) {
         if (!this.search(value)) {
-            alert("Amigo, parece que sua remoção não teve sucesso :(")
             return false;
         }
 
@@ -69,18 +67,17 @@ export default class LinkedQueue {
                     it.next.previous = it.previous;
                 }
                 this.size--;
-                alert("Amigo, parece que sua remoção teve sucesso :)")
                 return true;
             }
             it = it.next;
         }
-        alert("Amigo, parece que sua remoção não teve sucesso :(")
         return false;
     }
 
     clear() {
         this.first = null;
         this.last = null;
+        return true;
     }
 
     search(value) {
@@ -92,10 +89,8 @@ export default class LinkedQueue {
         }
         if (ptrAtual && ptrAtual.value === value) {
             this.finded_value = ptrAtual;
-            alert("Amigo, parece que sua procura teve sucesso :)")
             return true;
         }
-        alert("Amigo, parece que sua procura não teve sucesso :(")
         return false;
     }
     print() {

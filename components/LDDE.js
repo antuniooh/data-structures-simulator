@@ -44,7 +44,7 @@ export default class LDDE extends React.Component {
             Inserir
           </Botao>
 
-          <Botao onPress={() => this.state.managerCanvas.removeDoubleLinked()}>
+          <Botao onPress={() => this.state.managerCanvas.removeDoubleLinked(this.state.text)}>
             Remover
           </Botao>
 

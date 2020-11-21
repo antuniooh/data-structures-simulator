@@ -27,7 +27,9 @@ class MyTabs extends React.Component {
             if (route.name === 'Estruturas') {
               iconName = focused ? 'circle' : 'circle-outline';
             } else if (route.name === 'Informações') {
-              iconName = focused ? 'comment-question' : 'comment-question-outline';
+              iconName = focused
+                ? 'comment-question'
+                : 'comment-question-outline';
             }
             return (
               <MaterialCommunityIcons
@@ -39,8 +41,16 @@ class MyTabs extends React.Component {
           },
         })}
         tabBarOptions={{
-          activeTintColor: '#F29849',
-          inactiveTintColor: 'gray',
+          activeTintColor: '#aca344',
+          inactiveTintColor: 'white',
+          style: {
+            borderWidth: 0.5,
+            borderBottomWidth: 1,
+            backgroundColor: '#00857E',
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
+            borderColor: '00857E',
+          },
         }}>
         <Tab.Screen name="Estruturas" component={ListTypes} />
         <Tab.Screen name="Informações" component={InformationTypes} />
@@ -53,9 +63,7 @@ const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer 
-    style={estilos.container}
-    >
+    <NavigationContainer style={estilos.container}>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
           name="Home"
@@ -63,48 +71,56 @@ export default function App() {
           options={{
             title: 'Lista de Estruturas',
             headerStyle: {
-              backgroundColor: '#F2B749',
+              backgroundColor: 'white',
             },
-            headerTintColor: '#fff',
+            headerTintColor: '#232425',
             headerTitleStyle: {
               fontWeight: 'bold',
             },
           }}
         />
-        <Stack.Screen name="FEC" component={FEC} 
-        options={{
+        <Stack.Screen
+          name="FEC"
+          component={FEC}
+          options={{
             title: 'Fila Estática Circular',
             headerStyle: {
-              backgroundColor: '#F2B749',
+              backgroundColor: '#070082',
             },
-            headerTintColor: '#fff',
+            headerTintColor: 'white',
             headerTitleStyle: {
               fontWeight: 'bold',
             },
           }}
         />
-        <Stack.Screen name="LDDE" component={LDDE} 
-        options={{
+        <Stack.Screen
+          name="LDDE"
+          component={LDDE}
+          options={{
             title: 'Lista Dinâmica Duplamente Encadeada',
             headerStyle: {
-              backgroundColor: '#F2B749',
+              backgroundColor: '#070082',
             },
-            headerTintColor: '#fff',
+            headerTintColor: 'white',
             headerTitleStyle: {
               fontWeight: 'bold',
             },
-          }}/>
-        <Stack.Screen name="Hash" component={Hash} 
-        options={{
+          }}
+        />
+        <Stack.Screen
+          name="Hash"
+          component={Hash}
+          options={{
             title: 'Tabela Hash',
             headerStyle: {
-              backgroundColor: '#F2B749',
+              backgroundColor: '#070082',
             },
-            headerTintColor: '#fff',
+            headerTintColor: 'white',
             headerTitleStyle: {
               fontWeight: 'bold',
             },
-          }}/>
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
