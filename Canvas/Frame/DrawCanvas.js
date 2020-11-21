@@ -23,7 +23,8 @@ export default class DrawCanvas {
 
     this.arrayElements = [];
 
-    this.squareSize = { width: 40, heigth: 40 };
+    this.squareWidth = 60;
+    this.squareHeigth = 30;
     this.canvas = canvas;
     this.canvas.height = 300;
     this.canvas.width = 300;
@@ -31,15 +32,14 @@ export default class DrawCanvas {
     this.ctx = canvas.getContext('2d');
 
     this.drawBackgroundCanvas = this.drawBackgroundCanvas.bind(this);
-    this.squareInsert = this.squareInsert.bind(this);
+    this.removeHash = this.removeHash.bind(this);
+    this.searchHash = this.searchHash.bind(this);
 
     this.insertStaticQueue = this.insertStaticQueue.bind(this);
     this.removeStaticQueue = this.removeStaticQueue.bind(this);
     this.searchStaticQueue = this.searchStaticQueue.bind(this);
     this.clearStaticQueue = this.clearStaticQueue.bind(this);
     this.drawStaticQueue = this.drawStaticQueue.bind(this);
-
-    this.clear = this.clear.bind(this);
 
     this.clearCanvas = this.clearCanvas.bind(this);
   }
@@ -136,35 +136,7 @@ export default class DrawCanvas {
 
   draw_square(posx, posy) {
     this.ctx.fillStyle = 'purple';
-    this.ctx.fillRect(posx, posy, this.squareSize.width, this.squareSize.height);
-    this.atualizeCanvas();
-  }
-
-  squareInsert(value) {
-    if (this.arrayElements.length == 0) {
-      this.draw_square(0, 0);
-      this.arrayElements.push({ x: 0, y: 0, valor: value });
-    } else {
-      let x = this.arrayElements[this.arrayElements.length - 1].x;
-      let y = this.arrayElements[this.arrayElements.length - 1].y;
-      if (y + this.squareSize.width >= this.canvasSize.width) {
-        this.draw_square(
-          x + 30,
-          y + 30,
-          this.squareSize.width,
-          this.squareSize.heigth
-        );
-        this.arrayElements.push({ x: x + 30, y: y + 30, value });
-      } else {
-        this.draw_square(
-          x + 30,
-          y,
-          this.squareSize.width,
-          this.squareSize.heigth
-        );
-        this.arrayElements.push({ x: x + 30, y: y, value });
-      }
-    }
+    this.ctx.fillRect(posx, posy, this.squareWidth, this.squareHeigth);
     this.atualizeCanvas();
   }
 
@@ -204,62 +176,134 @@ export default class DrawCanvas {
     }
   }
 
-  drawSquareText(posx, posy, key, value) {
-    this.ctx.fillStyle = "red";
-    this.ctx.fillRect(
-      posx,
-      posy,
-      this.squareSize.width,
-      this.squareSize.height
-    );
+  drawSquareText(posx, posy, key, value, colorBackground, colorBorder) {
+    //this.ctx.rect(posx, posy, this.squareWidth, this.squareHeigth);
+    //this.ctx.fill();
+    //this.ctx.lineWidth = 2;
+    //this.ctx.strokeStyle = colorBorder;
+    //this.ctx.stroke();
+    this.ctx.fillStyle = colorBackground;
+    this.ctx.fillRect(posx, posy, this.squareWidth, this.squareHeigth);
     this.ctx.font = 'bold 20px verdana, sans-serif';
     this.ctx.fillStyle = 'black';
-    this.ctx.fillText(key, posx + 5, posy + 2);
-    this.ctx.fillText(value, posx + 55, posy + 2);
+    this.ctx.fillText(key, posx + 15, posy + 15);
+
+    //this.ctx.rect(posx + 65, posy, this.squareWidth, this.squareHeigth);
+    //this.ctx.fill();
+    //this.ctx.lineWidth = 2;
+    //this.ctx.strokeStyle = colorBorder;
+    //this.ctx.stroke();
+    this.ctx.fillStyle = colorBackground;
+    this.ctx.fillRect(posx + 65, posy, this.squareWidth, this.squareHeigth);
+    this.ctx.fillStyle = 'black';
+    this.ctx.fillText(value, posx + 75, posy + 15);
+  }
+
+  arrayIsEmpty(){
+    let isEmpty = true;
+    if ( this.arrayElements.length == 0){
+      return true;
+    }
+    for (let i = 0; i < this.arrayElements.length; i++){
+      if (this.arrayElements[i] != null){
+        isEmpty = false;
+      }
+    }
+    return isEmpty;
+  }
+
+  sortByKey(){
+    if (!this.arrayIsEmpty()){
+      let menor = null;
+      for (let i = 0; i < this.arrayElements.length-1; i++){
+        for (let j = i+1; j < this.arrayElements.length; j++){
+          if (this.arrayElements[i] != null && this.arrayElements[j] != null && this.arrayElements[i].y > this.arrayElements[j].y){
+            let temp = this.arrayElements[i].y;
+            this.arrayElements[i].y = this.arrayElements[j].y;
+            this.arrayElements[j].y = temp;
+          }
+        }
+      }
+    }
+    console.log(this.arrayElements);
   }
 
   insertHash(key, value) {
     if (this.structureObj.insert(key, value)) {
       let hash_key = this.structureObj.hash(key);
-      if (this.arrayElements.length == 0) {
-        this.drawSquareText(100, 100, 'key', 'value');
-        this.drawSquareText(100, 120, key.toString(), value.toString());
+      if (this.arrayIsEmpty()) {
         this.arrayElements[hash_key] = {
-          x: 100,
-          y: 120,
+          x: 80,
+          y: 75,
           key: key,
-          valor: value,
+          value: value,
         };
       } else {
-        alert(this.arrayElements[hash_key]);
         if (this.arrayElements[hash_key]) {
-          alert(this.arrayElements[hash_key].x)
-          alert(this.arrayElements[hash_key].y)
-          this.ctx.clearRect(
-            this.arrayElements[hash_key].x,
-            this.arrayElements[hash_key].y,
-            this.arrayElements[hash_key].x + this.squareSize.width * 2,
-            this.arrayElements[hash_key].y + this.squareSize.heigth
-          );
-          this.drawSquareText(
-            this.arrayElements[hash_key].x,
-            this.arrayElements[hash_key].y,
-            key,
-            value.toString()
-          );
-          this.arrayElements[hash_key].valor = value;
+          this.arrayElements[hash_key].value = value;
         } else {
           let xArray = this.arrayElements[this.arrayElements.length - 1].x;
           let yArray = this.arrayElements[this.arrayElements.length - 1].y;
-          this.drawSquareText(xArray, yArray + 40, key, value.toString());
           this.arrayElements[hash_key] = {
             x: xArray,
             y: yArray + 40,
             key: key,
-            valor: value,
+            value: value,
           };
         }
       }
+      this.sortByKey();
+      this.drawHash();
+    }
+  }
+
+  drawHash() {
+    if (this.arrayElements.length > 0) {
+      this.clearCanvas();
+      this.drawSquareText(80, 35, 'key', 'value', 'white', "black");
+      for (var i = 0; i < this.arrayElements.length; i++) {
+        if (this.arrayElements[i] != null) {
+          let x = this.arrayElements[i].x;
+          let y = this.arrayElements[i].y;
+          let key = this.arrayElements[i].key.toString();
+          let value = this.arrayElements[i].value.toString();
+          this.drawSquareText(x, y, key, value, 'white', "black");
+        }
+      }
+    }
+  }
+
+  searchHash(key) {
+    let hash_key = this.structureObj.hash(key);
+    if (this.arrayElements[hash_key]) {
+      alert('O valor ' + key + 'foi achado');
+      this.ctx.drawSquareText(
+        this.arrayElements[hash_key].x,
+        this.arrayElements[hash_key].y,
+        this.arrayElements[hash_key].key.toString(),
+        this.arrayElements[hash_key].value.toString(),
+        "white",
+        'green'
+      );
+    }
+  }
+
+  removeHash(key) {
+    console.log(this.arrayElements);
+    let hash_key = this.structureObj.hash(key);
+    let last = this.arrayElements[hash_key];
+    if (this.arrayElements[hash_key]) {
+      if (this.arrayElements.length > 0 && this.arrayElements.length > hash_key) {
+        for (let i = hash_key+1; i < this.arrayElements.length; i++) {
+          if (this.arrayElements[i] != null) {
+            this.arrayElements[i].y = last.y;
+            last = this.arrayElements[i];
+          }
+        }
+      }
+      this.arrayElements[hash_key] = null;
+      this.sortByKey();
+      this.drawHash();
     }
   }
 

@@ -59,7 +59,7 @@ export default class Hash extends React.Component {
               }></TextInput>
             <Button
               title="Remover"
-              onPress={() => this.hashTableObj.remove(this.state.removeText)}
+              onPress={() => this.state.managerCanvas.removeHash(this.state.removeText)}
               style={estilos.buttons}></Button>
           </View>
 
@@ -71,7 +71,7 @@ export default class Hash extends React.Component {
               }></TextInput>
             <Button
               title="Pesquisar"
-              onPress={() => this.hashTableObj.search(this.state.searchText)}
+              onPress={() => this.state.managerCanvas.searchHash(this.state.searchText)}
               style={estilos.botao}></Button>
           </View>
 
