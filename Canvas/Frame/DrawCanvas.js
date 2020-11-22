@@ -177,8 +177,33 @@ export default class DrawCanvas {
 
   removeDoubleLinked(valueReceive) {
     if (this.structureObj.remove(valueReceive)) {
-      dataPositionsDoubleLinked[sizeDoubleLinked - 1].value = null;
-      sizeDoubleLinked--;
+      let find = false;
+      let last = null;
+      for (var i = 0; i < dataPositionsDoubleLinked.length; i++) {
+        if (dataPositionsDoubleLinked[i].value == valueReceive) {
+          find = true;
+          for (let j = dataPositionsDoubleLinked.length-1; j >= i; j--){
+            if (dataPositionsDoubleLinked.length > 1) {
+              if (dataPositionsDoubleLinked[j].value != null && last != null){
+                dataPositionsDoubleLinked[last].x = dataPositionsDoubleLinked[j].x;
+                dataPositionsDoubleLinked[last].y = dataPositionsDoubleLinked[j].y;
+                last = j;
+              }
+              else if (last == null && dataPositionsDoubleLinked[j].value != null){
+                last = j;
+              }
+            }
+          }
+          break;
+        }
+      }
+      if (find == true) {
+        dataPositionsDoubleLinked[i].value = null;
+        sizeDoubleLinked--;
+      }
+      else{
+        alert("Nao foi possivel remover o valor " + valueReceive);
+      }
       this.drawDoubleLinked();
     }
   }
