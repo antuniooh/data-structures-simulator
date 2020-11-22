@@ -46,7 +46,9 @@ export default class Hash extends React.Component {
         <View style={estilos.rowStyle}>
           <Botao
             onPress={() =>
-              this.state.managerCanvas.insertStaticQueue(this.state.text)
+              this.state.managerCanvas.removeHash(
+                this.state.keyText,
+              )
             }>
             Inserir
           </Botao>
@@ -61,7 +63,7 @@ export default class Hash extends React.Component {
             Remover
           </Botao>
 
-          <Botao onPress={() => this.hashTableObj.search(this.state.keyText)}>
+          <Botao onPress={() => this.state.managerCanvas.searchHash(this.state.keyText)}>
             Pesquisar
           </Botao>
           <Botao onPress={() => this.state.managerCanvas.clear()}>Limpar</Botao>

@@ -41,7 +41,8 @@ export default class DrawCanvas {
 
     this.arrayElements = [];
 
-    this.squareSize = { width: 40, heigth: 40 };
+    this.squareWidth = 60;
+    this.squareHeigth = 30;
     this.canvas = canvas;
     this.canvas.height = 300;
     this.canvas.width = 300;
@@ -50,6 +51,8 @@ export default class DrawCanvas {
 
     this.drawBackgroundCanvas = this.drawBackgroundCanvas.bind(this);
     this.squareInsert = this.squareInsert.bind(this);
+    this.removeHash = this.removeHash.bind(this);
+    this.searchHash = this.searchHash.bind(this);
 
     this.insertStaticQueue = this.insertStaticQueue.bind(this);
     this.removeStaticQueue = this.removeStaticQueue.bind(this);
@@ -62,7 +65,7 @@ export default class DrawCanvas {
     this.searchDoubleLinked = this.searchDoubleLinked.bind(this);
     this.clearDoubleLinked = this.clearDoubleLinked.bind(this);
     this.drawDoubleLinked = this.drawDoubleLinked.bind(this);
-
+    
     this.clearCanvas = this.clearCanvas.bind(this);
   }
 
@@ -340,5 +343,171 @@ export default class DrawCanvas {
       fromx - headlen * Math.cos(angle + Math.PI / 6),
       fromy - headlen * Math.sin(angle + Math.PI / 6)
     );
+  }
+  drawSquareText(posx, posy, key, value, colorBackground) {
+    //this.ctx.rect(posx, posy, this.squareWidth, this.squareHeigth);
+    //this.ctx.fill();
+    //this.ctx.lineWidth = 2;
+    //this.ctx.stroke();
+    this.ctx.fillStyle = colorBackground;
+    this.ctx.fillRect(posx, posy, this.squareWidth, this.squareHeigth);
+    this.ctx.font = 'bold 20px verdana, sans-serif';
+    this.ctx.fillStyle = 'black';
+    this.ctx.fillText(key, posx + 15, posy + 15);
+
+    //this.ctx.rect(posx + 65, posy, this.squareWidth, this.squareHeigth);
+    //this.ctx.fill();
+    //this.ctx.lineWidth = 2;
+    //this.ctx.stroke();
+    this.ctx.fillStyle = colorBackground;
+    this.ctx.fillRect(posx + 65, posy, this.squareWidth, this.squareHeigth);
+    this.ctx.fillStyle = 'black';
+    this.ctx.fillText(value, posx + 75, posy + 15);
+  }
+
+  arrayIsEmpty() {
+    let isEmpty = true;
+    if (this.arrayElements.length == 0) {
+      return true;
+    }
+    for (let i = 0; i < this.arrayElements.length; i++) {
+      if (this.arrayElements[i] != null) {
+        isEmpty = false;
+      }
+    }
+    return isEmpty;
+  }
+
+  sortByKey() {
+    if (!this.arrayIsEmpty()) {
+      let menor = null;
+      for (let i = 0; i < this.arrayElements.length - 1; i++) {
+        for (let j = i + 1; j < this.arrayElements.length; j++) {
+          if (
+            this.arrayElements[i] != null &&
+            this.arrayElements[j] != null &&
+            this.arrayElements[i].y > this.arrayElements[j].y
+          ) {
+            let temp = this.arrayElements[i].y;
+            this.arrayElements[i].y = this.arrayElements[j].y;
+            this.arrayElements[j].y = temp;
+          }
+        }
+      }
+    }
+    //console.log(this.arrayElements);
+  }
+
+  insertHash(key, value) {
+    if (this.structureObj.insert(key, value)) {
+      let hash_key = this.structureObj.hash(key);
+      if (this.arrayIsEmpty()) {
+        this.arrayElements[hash_key] = {
+          x: 80,
+          y: 75,
+          key: key,
+          value: value,
+        };
+      } else {
+        if (this.arrayElements[hash_key]) {
+          this.arrayElements[hash_key].value = value;
+        } else {
+          let bigger = 0;
+          let bigger_hash = null;
+          for ( var i = 0; i < this.arrayElements.length; i++){
+            if (this.arrayElements[i] && this.arrayElements[i].y > bigger){
+              bigger = this.arrayElements[i].y
+              bigger_hash = this.arrayElements[i];
+            }
+          }
+          let xArray = bigger_hash.x;
+          let yArray = bigger_hash.y;
+          this.arrayElements[hash_key] = {
+            x: xArray,
+            y: yArray + 40,
+            key: key,
+            value: value,
+          };
+        }
+      }
+      this.sortByKey();
+      this.drawHash();
+    }
+  }
+
+  drawHash(searchKey) {
+    if (this.arrayElements.length > 0) {
+      this.clearCanvas();
+      this.drawSquareText(80, 35, 'key', 'value', 'white');
+      for (var i = 0; i < this.arrayElements.length; i++) {
+        if (this.arrayElements[i] != null) {
+          let x = this.arrayElements[i].x;
+          let y = this.arrayElements[i].y;
+          let key = this.arrayElements[i].key.toString();
+          let value = this.arrayElements[i].value.toString();
+          if (
+            typeof searchKey !== 'undefined' &&
+            this.arrayElements[i].key === searchKey
+          ) {
+            this.drawSquareText(x, y, key, value, 'green');
+          } else {
+            this.drawSquareText(x, y, key, value, 'white');
+          }
+        }
+      }
+    }
+  }
+
+  searchHash(key) {
+    let hash_key = this.structureObj.hash(key);
+    if (this.arrayElements[hash_key]) {
+      alert('O valor ' + key + 'foi achado');
+      this.drawHash(key);
+    } else {
+      alert('A chave ' + key + ' nao existe');
+    }
+  }
+
+  removeHash(key) {
+    console.log(this.arrayElements);
+    let hash_key = this.structureObj.hash(key);
+    let last = null;
+    if (this.structureObj.remove(key)) {
+      if (
+        !this.arrayIsEmpty() &&
+        this.structureObj.getSize() > 1 &&
+        this.arrayElements[hash_key]
+      ) {
+        if (this.arrayElements.length > hash_key) {
+          console.log("Entrou no 1");
+          for (var i = this.arrayElements.length - 1; i > hash_key; i--) {
+            for (var j = i - 1; j > hash_key; j--){
+              if (this.arrayElements[j] != null){
+                break;
+              }
+            }
+            if (this.arrayElements[i] != null){
+              this.arrayElements[i].y = this.arrayElements[j].y;
+            }
+          }
+        }
+        this.arrayElements[hash_key] = null;
+        console.log(this.arrayElements);
+      } else if (this.arrayElements[hash_key]) {
+        console.log('Entrou no else if');
+        this.arrayElements[hash_key] = null;
+      }
+      this.drawHash();
+    } else {
+      alert('Nao encontrou para remover');
+    }
+  }
+
+  clear() {
+    if (this.structureObj.clear()) {
+      this.arrayElements = [];
+      this.clearCanvas();
+      alert('structure and canvas was clear');
+    }
   }
 }

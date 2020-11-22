@@ -1,6 +1,5 @@
 import React from 'react';
 import {TouchableOpacity, Text} from 'react-native';
-import estilos from '../estilo';
 
 class Botao extends React.Component{
   render(){
