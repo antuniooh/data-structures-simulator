@@ -35,21 +35,29 @@ var dataPositionsDoubleLinked = [
 
 var sizeDoubleLinked = 0;
 
+var dataPositionsHashTable = [];
+
+var sizeHashTable = 0;
+
 export default class DrawCanvas {
   constructor(canvas, structure) {
     this.structureObj = structure;
 
     this.arrayElements = [];
 
-    this.squareSize = { width: 40, heigth: 40 };
+    this.squareWidth = 60;
+    this.squareHeigth = 30;
     this.canvas = canvas;
     this.canvas.height = 300;
     this.canvas.width = 300;
 
     this.ctx = canvas.getContext('2d');
 
-    this.drawBackgroundCanvas = this.drawBackgroundCanvas.bind(this);
-    this.squareInsert = this.squareInsert.bind(this);
+    this.insertHash = this.insertHash.bind(this);
+    this.removeHash = this.removeHash.bind(this);
+    this.searchHash = this.searchHash.bind(this);
+    this.clearHash = this.clearHash.bind(this);
+    this.drawHash = this.drawHash.bind(this);
 
     this.insertStaticQueue = this.insertStaticQueue.bind(this);
     this.removeStaticQueue = this.removeStaticQueue.bind(this);
@@ -201,7 +209,7 @@ export default class DrawCanvas {
       }
       sizeDoubleLinked = 0;
     }
-    this.drawDoubleLinked();
+    this.clearCanvas();
   }
 
   drawDoubleLinked() {
@@ -233,86 +241,48 @@ export default class DrawCanvas {
         );
         this.ctx.stroke();
 
-        if (sizeDoubleLinked > 1 && i < 8 ) {
-            //first and third line
-            if ((i >= 0 && i < 2) || (i >= 6 && i < 9)) {
-              this.draw_arrow(
-                this.ctx,
-                dataPositionsDoubleLinked[i].x + 60,
-                dataPositionsDoubleLinked[i].y + 30,
-                dataPositionsDoubleLinked[i + 1].x,
-                dataPositionsDoubleLinked[i + 1].y + 30
-              );
-            } 
-            //border
-            else if (i == 2 || i == 5) {
-              this.draw_arrow(
-                this.ctx,
-                dataPositionsDoubleLinked[i].x + 30,
-                dataPositionsDoubleLinked[i].y + 60,
-                dataPositionsDoubleLinked[i + 1].x + 30,
-                dataPositionsDoubleLinked[i + 1].y
-              );
-            } 
-            //second line
-            else if (i >= 3 && i < 5) {
-              this.draw_arrow(
-                this.ctx,
-                dataPositionsDoubleLinked[i].x ,
-                dataPositionsDoubleLinked[i].y + 30,
-                dataPositionsDoubleLinked[i + 1].x + 60,
-                dataPositionsDoubleLinked[i + 1].y + 30
-              );
-            }
+        if (sizeDoubleLinked > 1 && i < 8) {
+          //first and third line
+          if ((i >= 0 && i < 2) || (i >= 6 && i < 9)) {
+            this.drawArrow(
+              this.ctx,
+              dataPositionsDoubleLinked[i].x + 60,
+              dataPositionsDoubleLinked[i].y + 30,
+              dataPositionsDoubleLinked[i + 1].x,
+              dataPositionsDoubleLinked[i + 1].y + 30
+            );
           }
+          //border
+          else if (i == 2 || i == 5) {
+            this.drawArrow(
+              this.ctx,
+              dataPositionsDoubleLinked[i].x + 30,
+              dataPositionsDoubleLinked[i].y + 60,
+              dataPositionsDoubleLinked[i + 1].x + 30,
+              dataPositionsDoubleLinked[i + 1].y
+            );
+          }
+          //second line
+          else if (i >= 3 && i < 5) {
+            this.drawArrow(
+              this.ctx,
+              dataPositionsDoubleLinked[i].x,
+              dataPositionsDoubleLinked[i].y + 30,
+              dataPositionsDoubleLinked[i + 1].x + 60,
+              dataPositionsDoubleLinked[i + 1].y + 30
+            );
+          }
+        }
       }
     }
   }
 
-  drawBackgroundCanvas(posy, posx, width, height) {
-    this.ctx.fillRect(posy, posx, width, height);
-  }
-
-  draw_square(posy, posx) {
-    this.ctx.fillStyle = 'purple';
-    this.ctx.fillRect(0, 0, this.squareSize.width, this.squareSize.height);
-    this.atualizeCanvas();
-  }
-
-  squareInsert(value) {
-    if (this.arrayElements.length == 0) {
-      this.draw_square(0, 0);
-      this.arrayElements.push({ x: 0, y: 0, valor: value });
-    } else {
-      let x = this.arrayElements[this.arrayElements.length - 1].x;
-      let y = this.arrayElements[this.arrayElements.length - 1].y;
-      if (y + this.squareSize.width >= this.canvasSize.width) {
-        this.draw_square(
-          y + 30,
-          x + 30,
-          this.squareSize.width,
-          this.squareSize.heigth
-        );
-        this.arrayElements.push({ x: x + 30, y: y + 30, value });
-      } else {
-        this.draw_square(
-          y + 30,
-          x,
-          this.squareSize.width,
-          this.squareSize.heigth
-        );
-        this.arrayElements.push({ x: x + 30, y: y, value });
-      }
-    }
-    this.atualizeCanvas();
-  }
-
-  draw_arrow(context, fromx, fromy, tox, toy) {
+  drawArrow(context, fromx, fromy, tox, toy) {
     var headlen = 10;
     var dx = tox - fromx;
     var dy = toy - fromy;
     var angle = Math.atan2(dy, dx);
-    
+
     context.moveTo(fromx, fromy);
     context.lineTo(tox, toy);
     context.lineTo(
@@ -328,7 +298,7 @@ export default class DrawCanvas {
     dx = fromx - tox;
     dy = fromy - toy;
     angle = Math.atan2(dy, dx);
-    
+
     context.moveTo(tox, toy);
     context.lineTo(fromx, fromy);
     context.lineTo(
@@ -340,5 +310,106 @@ export default class DrawCanvas {
       fromx - headlen * Math.cos(angle + Math.PI / 6),
       fromy - headlen * Math.sin(angle + Math.PI / 6)
     );
+  }
+
+  sortByKey() {
+    dataPositionsHashTable.sort((a, b) => (a.key > b.key ? 1 : -1));
+  }
+
+  insertHash(key, value) {
+    if (key != '' && value != '' && sizeHashTable < 6) {
+      if (this.structureObj.insert(key, value)) {
+        dataPositionsHashTable.push({
+          x: 40,
+          y: null,
+          value: value,
+          key: parseInt(key),
+          color: 'black',
+        });
+        sizeHashTable++;
+        this.sortByKey();
+        this.drawHash();
+      }
+    }
+  }
+
+  drawHash() {
+    this.clearCanvas();
+
+    var yLast = 40;
+
+    for (var i = 0; i < dataPositionsHashTable.length; i++) {
+      if (dataPositionsHashTable[i].value != null) {
+        if (i > 0) yLast += 40;
+
+        this.ctx.rect(dataPositionsHashTable[i].x, yLast, 100, 40);
+        this.ctx.fillStyle = dataPositionsHashTable[i].color;
+        this.ctx.fill();
+        this.ctx.rect(dataPositionsHashTable[i].x + 100, yLast, 100, 40);
+        this.ctx.fillStyle = dataPositionsHashTable[i].color;
+        this.ctx.fill();
+
+        this.ctx.lineWidth = 3;
+        this.ctx.strokeStyle = 'gray';
+        this.ctx.stroke();
+
+        this.ctx.beginPath();
+        this.ctx.font = 'bold 15px verdana, sans-serif';
+        this.ctx.fillStyle = 'white';
+
+        this.ctx.fillText(
+          dataPositionsHashTable[i].key,
+          dataPositionsHashTable[i].x + 45,
+          yLast + 25,
+          50
+        );
+        this.ctx.fillText(
+          dataPositionsHashTable[i].value,
+          dataPositionsHashTable[i].x + 145,
+          yLast + 25,
+          50
+        );
+        this.ctx.stroke();
+      }
+    }
+  }
+
+  async searchHash(key) {
+    this.structureObj.search(key);
+    for (let i = 0; i < sizeHashTable; i++) {
+      if (dataPositionsHashTable[i].key == parseInt(key)) {
+        dataPositionsHashTable[i].color = 'green';
+        break;
+      } else dataPositionsHashTable[i].color = 'gray';
+      await sleep(1000);
+      this.drawHash();
+    }
+    await sleep(1000);
+
+    this.drawHash();
+
+    for (let i = 0; i < sizeHashTable; i++) {
+      dataPositionsHashTable[i].color = 'black';
+    }
+  }
+
+  removeHash(keyReceive) {
+    if (keyReceive != '') {
+      if (this.structureObj.remove(keyReceive)) {
+        dataPositionsHashTable.splice(
+          dataPositionsHashTable.findIndex(({ key }) => key == keyReceive),
+          1
+        );
+        sizeHashTable--;
+        this.drawHash();
+      }
+    }
+  }
+
+  clearHash() {
+    if (this.structureObj.clear()) {
+      dataPositionsHashTable = [];
+      this.clearCanvas();
+    }
   }
 }
