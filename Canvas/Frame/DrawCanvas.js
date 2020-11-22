@@ -317,8 +317,13 @@ export default class DrawCanvas {
   }
 
   insertHash(key, value) {
-    if (key != '' && value != '' && sizeHashTable < 6) {
+    if (key != '' && value != ''){// && sizeHashTable < 6) {
       if (this.structureObj.insert(key, value)) {
+        for (let i = 0; i < dataPositionsHashTable.length; i++){
+          if (dataPositionsHashTable[i].key == key){
+            break;
+          }
+        }
         dataPositionsHashTable.push({
           x: 40,
           y: null,
@@ -374,23 +379,18 @@ export default class DrawCanvas {
     }
   }
 
-  async searchHash(key) {
+  searchHash(key) {
     this.structureObj.search(key);
-    for (let i = 0; i < sizeHashTable; i++) {
+    for (var i = 0; i < sizeHashTable; i++) {
       if (dataPositionsHashTable[i].key == parseInt(key)) {
         dataPositionsHashTable[i].color = 'green';
         break;
-      } else dataPositionsHashTable[i].color = 'gray';
-      await sleep(1000);
-      this.drawHash();
+      }
     }
-    await sleep(1000);
 
     this.drawHash();
 
-    for (let i = 0; i < sizeHashTable; i++) {
-      dataPositionsHashTable[i].color = 'black';
-    }
+    dataPositionsHashTable[i].color = 'black';
   }
 
   removeHash(keyReceive) {
