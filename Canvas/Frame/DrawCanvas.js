@@ -317,20 +317,35 @@ export default class DrawCanvas {
   }
 
   insertHash(key, value) {
-    if (key != '' && value != ''){// && sizeHashTable < 6) {
+    if (key != '' && value != '' && sizeHashTable < 6) {
+      let find = false;
       if (this.structureObj.insert(key, value)) {
-        for (let i = 0; i < dataPositionsHashTable.length; i++){
-          if (dataPositionsHashTable[i].key == key){
+        for (var i = 0; i < dataPositionsHashTable.length; i++) {
+          if (dataPositionsHashTable[i].key == parseInt(key)) {
+            find = true;
             break;
           }
         }
-        dataPositionsHashTable.push({
-          x: 40,
-          y: null,
-          value: value,
-          key: parseInt(key),
-          color: 'black',
-        });
+        if (find) {
+          console.log('Ta no find');
+          dataPositionsHashTable[i] = {
+            x: 40,
+            y: null,
+            value: value,
+            key: parseInt(key),
+            color: 'black',
+          };
+        } else {
+          console.log('entrou no else');
+          dataPositionsHashTable.push({
+            x: 40,
+            y: null,
+            value: value,
+            key: parseInt(key),
+            color: 'black',
+          });
+        }
+        console.log(dataPositionsHashTable);
         sizeHashTable++;
         this.sortByKey();
         this.drawHash();
