@@ -350,59 +350,66 @@ export default class DrawCanvas {
     }
   }
 
+  drawSquareText(x, y, color, key, value) {
+    this.ctx.rect(x, y, 100, 40);
+    this.ctx.fillStyle = color;
+    this.ctx.fill();
+    this.ctx.rect(x + 100, y, 100, 40);
+    this.ctx.fillStyle = color;
+    this.ctx.fill();
+
+    this.ctx.lineWidth = 3;
+    this.ctx.strokeStyle = 'gray';
+    this.ctx.stroke();
+
+    this.ctx.beginPath();
+    this.ctx.font = 'bold 15px verdana, sans-serif';
+    this.ctx.fillStyle = 'white';
+
+    this.ctx.fillText(key, x + 45, y + 25, 50);
+    this.ctx.fillText(value, x + 145, y + 25, 50);
+    this.ctx.stroke();
+  }
+
   drawHash() {
     this.clearCanvas();
 
     var yLast = 40;
 
+    this.drawSquareText(40, yLast, 'black', 'key', 'value');
+
+    yLast += 40;
     for (var i = 0; i < dataPositionsHashTable.length; i++) {
       if (dataPositionsHashTable[i].value != null) {
         if (i > 0) yLast += 40;
 
-        this.ctx.rect(dataPositionsHashTable[i].x, yLast, 100, 40);
-        this.ctx.fillStyle = dataPositionsHashTable[i].color;
-        this.ctx.fill();
-        this.ctx.rect(dataPositionsHashTable[i].x + 100, yLast, 100, 40);
-        this.ctx.fillStyle = dataPositionsHashTable[i].color;
-        this.ctx.fill();
-
-        this.ctx.lineWidth = 3;
-        this.ctx.strokeStyle = 'gray';
-        this.ctx.stroke();
-
-        this.ctx.beginPath();
-        this.ctx.font = 'bold 15px verdana, sans-serif';
-        this.ctx.fillStyle = 'white';
-
-        this.ctx.fillText(
+        this.drawSquareText(
+          dataPositionsHashTable[i].x,
+          yLast,
+          dataPositionsHashTable[i].color,
           dataPositionsHashTable[i].key,
-          dataPositionsHashTable[i].x + 45,
-          yLast + 25,
-          50
+          dataPositionsHashTable[i].value
         );
-        this.ctx.fillText(
-          dataPositionsHashTable[i].value,
-          dataPositionsHashTable[i].x + 145,
-          yLast + 25,
-          50
-        );
-        this.ctx.stroke();
       }
     }
   }
 
   searchHash(key) {
-    this.structureObj.search(key);
-    for (var i = 0; i < sizeHashTable; i++) {
-      if (dataPositionsHashTable[i].key == parseInt(key)) {
-        dataPositionsHashTable[i].color = 'green';
-        break;
+    if (this.structureObj.search(key)) {
+      for (var i = 0; i < sizeHashTable; i++) {
+        if (dataPositionsHashTable[i].key == parseInt(key)) {
+          dataPositionsHashTable[i].color = 'green';
+          break;
+        }
       }
+
+      this.drawHash();
+
+      dataPositionsHashTable[i].color = 'black';
     }
-
-    this.drawHash();
-
-    dataPositionsHashTable[i].color = 'black';
+    else{
+      alert("Numero nao encontrado");
+    }
   }
 
   removeHash(keyReceive) {
@@ -413,7 +420,11 @@ export default class DrawCanvas {
           1
         );
         sizeHashTable--;
+        console.log(dataPositionsHashTable);
         this.drawHash();
+      }
+      else{
+        alert("Numero nao encontrado");
       }
     }
   }
