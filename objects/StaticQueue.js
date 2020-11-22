@@ -39,8 +39,11 @@ export default class StaticQueue {
     }
 
     search(value) {
-        let finded = (this.elements.indexOf(value) != -1);
-        return finded;
+        for(var valueElement in this.elements){
+            if(value == valueElement)
+                return true
+        }
+        return false;
     }
     print() {
         console.log(this.elements)
