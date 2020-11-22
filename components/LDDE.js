@@ -1,71 +1,62 @@
 import * as React from 'react';
 import { Text, View, Button, TextInput } from 'react-native';
 import estilos from '../estilo';
+import Canvas from 'react-native-canvas';
+import DrawCanvas from '../Canvas/Frame/DrawCanvas';
 import LinkedQueue from '../objects/LinkedQueue';
+import Botao from './CustomButtom';
 
 export default class LDDE extends React.Component {
   constructor(props) {
     super(props);
-    this.insertText = undefined;
-    this.searchText = undefined;
-    this.removeText = undefined;
-    this.linkedQueueObj = new LinkedQueue();
+    this.text = '';
+    this.managerCanvas = undefined;
   }
+
+  handleCanvas = (canvasReceive) => {
+    if (canvasReceive != null) {
+      this.setState({
+        managerCanvas: new DrawCanvas(canvasReceive, new LinkedQueue()),
+      });
+    }
+  };
 
   render() {
     return (
       <View style={estilos.container}>
-        <Text style={estilos.title}>Lista Dinâmica Duplamente Encadeada </Text>
+        <Canvas ref={this.handleCanvas} />
 
         <View style={estilos.rowStyle}>
-          <View style={estilos.columnStyle}>
-            <TextInput
-              style={estilos.caixa}
-              onChangeText={(texto) =>
-                this.setState({ insertText: texto })
-              }></TextInput>
-            <Button
-              title="Inserir"
-              onPress={() => this.linkedQueueObj.insert(this.insertText)}
-              style={estilos.buttons}></Button>
-          </View>
+          <TextInput
+            style={estilos.caixa}
+            placeholder="Digite o número"
+            keyboardType={'numeric'}
+            onChangeText={(texto) =>
+              this.setState({ text: texto })
+            }></TextInput>
+        </View>
 
-          <View style={estilos.columnStyle}>
-            <TextInput
-              style={estilos.caixa}
-              onChangeText={(texto) =>
-                this.setState({ removeText: texto })
-              }></TextInput>
-            <Button
-              title="Remover"
-              onPress={() => this.linkedQueueObj.remove(this.removeText)}
-              style={estilos.buttons}>
-              {' '}
-            </Button>
-          </View>
+        <View style={estilos.rowStyle}>
+          <Botao
+            onPress={() =>
+              this.state.managerCanvas.insertDoubleLinked(this.state.text)
+            }>
+            Inserir
+          </Botao>
 
-          <View style={estilos.columnStyle}>
-            <TextInput
-              style={estilos.caixa}
-              onChangeText={(texto) =>
-                this.setState({ searchText: texto })
-              }></TextInput>
-            <Button
-              title="Pesquisar"
-              onPress={() => this.linkedQueueObj.search(this.searchText)}
-              style={estilos.botao}>
-              {' '}
-            </Button>
-          </View>
+          <Botao onPress={() => this.state.managerCanvas.removeDoubleLinked(this.state.text)}>
+            Remover
+          </Botao>
 
-          <View style={estilos.columnStyle}>
-            <Button
-              title="Limpar"
-              onPress={() => this.linkedQueueObj.clear()}
-              style={estilos.buttons}>
-              {' '}
-            </Button>
-          </View>
+          <Botao
+            onPress={() =>
+              this.state.managerCanvas.searchDoubleLinked(this.state.text)
+            }>
+            Pesquisar
+          </Botao>
+          <Botao onPress={() => this.state.managerCanvas.clearDoubleLinked()}>
+            Limpar
+          </Botao>
         </View>
       </View>
     );
