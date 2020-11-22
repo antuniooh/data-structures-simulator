@@ -327,7 +327,6 @@ export default class DrawCanvas {
           }
         }
         if (find) {
-          console.log('Ta no find');
           dataPositionsHashTable[i] = {
             x: 40,
             y: null,
@@ -336,7 +335,6 @@ export default class DrawCanvas {
             color: 'black',
           };
         } else {
-          console.log('entrou no else');
           dataPositionsHashTable.push({
             x: 40,
             y: null,
@@ -345,7 +343,6 @@ export default class DrawCanvas {
             color: 'black',
           });
         }
-        console.log(dataPositionsHashTable);
         sizeHashTable++;
         this.sortByKey();
         this.drawHash();

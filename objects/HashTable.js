@@ -2,7 +2,7 @@ export default class HashTable {
   constructor() {
     this._storage = [];
     this._count = 0;
-    this._limit = 8;
+    this._limit = 6;
   }
 
   insert(key, value) {
@@ -27,7 +27,7 @@ export default class HashTable {
 
     if (this._storage[index]) {
       console.log(this._storage[index]);
-      this._storage.splice(index, 1);
+      this._storage.splice(index, 1, undefined);
       return true;
     }
     return false;
@@ -37,7 +37,6 @@ export default class HashTable {
     console.log(this._storage)
     let index = this.hash(key);
     if (this._storage[index]) {
-      alert("Achou")
       return true;
     }
     alert("Nao achou")
