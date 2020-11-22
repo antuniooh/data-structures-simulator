@@ -312,6 +312,7 @@ export default class DrawCanvas {
     var dx = tox - fromx;
     var dy = toy - fromy;
     var angle = Math.atan2(dy, dx);
+    
     context.moveTo(fromx, fromy);
     context.lineTo(tox, toy);
     context.lineTo(
@@ -322,6 +323,22 @@ export default class DrawCanvas {
     context.lineTo(
       tox - headlen * Math.cos(angle + Math.PI / 6),
       toy - headlen * Math.sin(angle + Math.PI / 6)
+    );
+
+    dx = fromx - tox;
+    dy = fromy - toy;
+    angle = Math.atan2(dy, dx);
+    
+    context.moveTo(tox, toy);
+    context.lineTo(fromx, fromy);
+    context.lineTo(
+      fromx - headlen * Math.cos(angle - Math.PI / 6),
+      fromy - headlen * Math.sin(angle - Math.PI / 6)
+    );
+    context.moveTo(fromx, fromy);
+    context.lineTo(
+      fromx - headlen * Math.cos(angle + Math.PI / 6),
+      fromy - headlen * Math.sin(angle + Math.PI / 6)
     );
   }
 }
