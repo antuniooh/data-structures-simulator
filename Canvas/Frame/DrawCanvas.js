@@ -449,6 +449,7 @@ export default class DrawCanvas {
   clearHash() {
     if (this.structureObj.clear()) {
       dataPositionsHashTable = [];
+      sizeHashTable=0;
       this.clearCanvas();
     }
   }
