@@ -72,6 +72,11 @@ export default class DrawCanvas {
     this.drawDoubleLinked = this.drawDoubleLinked.bind(this);
 
     this.clearCanvas = this.clearCanvas.bind(this);
+
+    //start all
+    this.clearDoubleLinked()
+    this.clearStaticQueue()
+    this.clearHash()
   }
 
   clearCanvas() {
