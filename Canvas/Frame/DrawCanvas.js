@@ -167,8 +167,15 @@ export default class DrawCanvas {
 
   insertDoubleLinked(valueReceive) {
     if (valueReceive != '' && sizeDoubleLinked < 9) {
-      if (this.structureObj.insert(valueReceive)) {
-        dataPositionsDoubleLinked[sizeDoubleLinked].value = valueReceive;
+      if (this.structureObj.insert(parseInt(valueReceive))) {
+        let tmp = this.structureObj.first;
+        let i = 0;
+        while (tmp != null) {
+          dataPositionsDoubleLinked[i].value = tmp.value;
+          tmp = tmp.next;
+          i++;
+        }
+
         sizeDoubleLinked++;
         this.drawDoubleLinked();
       }
@@ -176,34 +183,18 @@ export default class DrawCanvas {
   }
 
   removeDoubleLinked(valueReceive) {
-    if (this.structureObj.remove(valueReceive)) {
-      let find = false;
-      let last = null;
-      for (var i = 0; i < dataPositionsDoubleLinked.length; i++) {
-        if (dataPositionsDoubleLinked[i].value == valueReceive) {
-          find = true;
-          for (let j = dataPositionsDoubleLinked.length-1; j >= i; j--){
-            if (dataPositionsDoubleLinked.length > 1) {
-              if (dataPositionsDoubleLinked[j].value != null && last != null){
-                dataPositionsDoubleLinked[last].x = dataPositionsDoubleLinked[j].x;
-                dataPositionsDoubleLinked[last].y = dataPositionsDoubleLinked[j].y;
-                last = j;
-              }
-              else if (last == null && dataPositionsDoubleLinked[j].value != null){
-                last = j;
-              }
-            }
-          }
-          break;
-        }
+    for (let i = 0; i < sizeDoubleLinked; i++)
+      dataPositionsDoubleLinked[i].value = null;
+
+    if (this.structureObj.remove(parseInt(valueReceive))) {
+      let tmp = this.structureObj.first;
+      let i = 0;
+      while (tmp != null) {
+        dataPositionsDoubleLinked[i].value = tmp.value;
+        tmp = tmp.next;
+        i++;
       }
-      if (find == true) {
-        dataPositionsDoubleLinked[i].value = null;
-        sizeDoubleLinked--;
-      }
-      else{
-        alert("Nao foi possivel remover o valor " + valueReceive);
-      }
+      sizeDoubleLinked--;
       this.drawDoubleLinked();
     }
   }
@@ -266,9 +257,13 @@ export default class DrawCanvas {
         );
         this.ctx.stroke();
 
-        if (sizeDoubleLinked > 1 && i < 8) {
+        if (sizeDoubleLinked > 1 && i >= 0 && i < 8) {
+
           //first and third line
-          if ((i >= 0 && i < 2) || (i >= 6 && i < 9)) {
+          if (
+            i + 1 < sizeDoubleLinked &&
+            ((i >= 0 && i < 2) || (i >= 6 && i < 9))
+          ) {
             this.drawArrow(
               this.ctx,
               dataPositionsDoubleLinked[i].x + 60,
@@ -278,7 +273,7 @@ export default class DrawCanvas {
             );
           }
           //border
-          else if (i == 2 || i == 5) {
+          else if ((i == 2 || i == 5) && i + 1 < sizeDoubleLinked) {
             this.drawArrow(
               this.ctx,
               dataPositionsDoubleLinked[i].x + 30,
@@ -288,7 +283,7 @@ export default class DrawCanvas {
             );
           }
           //second line
-          else if (i >= 3 && i < 5) {
+          else if (i >= 3 && i < 5 && i + 1 < sizeDoubleLinked) {
             this.drawArrow(
               this.ctx,
               dataPositionsDoubleLinked[i].x,
@@ -431,9 +426,8 @@ export default class DrawCanvas {
       this.drawHash();
 
       dataPositionsHashTable[i].color = 'black';
-    }
-    else{
-      alert("Numero nao encontrado");
+    } else {
+      alert('Numero nao encontrado');
     }
   }
 
@@ -445,11 +439,9 @@ export default class DrawCanvas {
           1
         );
         sizeHashTable--;
-        console.log(dataPositionsHashTable);
         this.drawHash();
-      }
-      else{
-        alert("Numero nao encontrado");
+      } else {
+        alert('Numero nao encontrado');
       }
     }
   }
