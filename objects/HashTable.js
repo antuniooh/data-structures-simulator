@@ -19,6 +19,7 @@ export default class HashTable {
 
   clear() {
     this._storage = [];
+    this._count = 0;
     return true;
   }
 

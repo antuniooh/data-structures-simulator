@@ -37,8 +37,6 @@ var sizeDoubleLinked = 0;
 
 var dataPositionsHashTable = [];
 
-var sizeHashTable = 0;
-
 export default class DrawCanvas {
   constructor(canvas, structure) {
     this.structureObj = structure;
@@ -342,11 +340,12 @@ export default class DrawCanvas {
   }
 
   insertHash(key, value) {
-    if (key != '' && value != '' && sizeHashTable < 6) {
-      let find = false;
+    if (key != '' && value != '' && this.structureObj.getSize() < 6) {
       if (this.structureObj.insert(key, value)) {
+        var find = false;
+        var hash_key = this.structureObj.hash(key);
         for (var i = 0; i < dataPositionsHashTable.length; i++) {
-          if (dataPositionsHashTable[i].key == parseInt(key)) {
+          if (dataPositionsHashTable[i].hash_key == hash_key) {
             find = true;
             break;
           }
@@ -357,6 +356,7 @@ export default class DrawCanvas {
             y: null,
             value: value,
             key: parseInt(key),
+            hash_key: hash_key,
             color: 'black',
           };
         } else {
@@ -365,10 +365,10 @@ export default class DrawCanvas {
             y: null,
             value: value,
             key: parseInt(key),
+            hash_key: hash_key,
             color: 'black',
           });
         }
-        sizeHashTable++;
         this.sortByKey();
         this.drawHash();
       }
@@ -421,7 +421,7 @@ export default class DrawCanvas {
 
   searchHash(key) {
     if (this.structureObj.search(key)) {
-      for (var i = 0; i < sizeHashTable; i++) {
+      for (var i = 0; i < this.structureObj.getSize(); i++) {
         if (dataPositionsHashTable[i].key == parseInt(key)) {
           dataPositionsHashTable[i].color = 'green';
           break;
@@ -443,7 +443,6 @@ export default class DrawCanvas {
           dataPositionsHashTable.findIndex(({ key }) => key == keyReceive),
           1
         );
-        sizeHashTable--;
         this.drawHash();
       } else {
         alert('Numero nao encontrado');
@@ -454,7 +453,6 @@ export default class DrawCanvas {
   clearHash() {
     if (this.structureObj.clear()) {
       dataPositionsHashTable = [];
-      sizeHashTable=0;
       this.clearCanvas();
     }
   }
