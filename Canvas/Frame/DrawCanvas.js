@@ -20,6 +20,7 @@ var dataPositionsStaticQueue = [
 ];
 
 var sizeStaticQueue = 0;
+var beginStaticQueue = 0;
 
 var dataPositionsDoubleLinked = [
   { x: 20, y: 10, value: null, color: '#670D67' },
@@ -72,9 +73,9 @@ export default class DrawCanvas {
     this.clearCanvas = this.clearCanvas.bind(this);
 
     //start all
-    this.clearDoubleLinked()
-    this.clearStaticQueue()
-    this.clearHash()
+    this.clearDoubleLinked();
+    this.clearStaticQueue();
+    this.clearHash();
   }
 
   clearCanvas() {
@@ -82,7 +83,7 @@ export default class DrawCanvas {
   }
 
   insertStaticQueue(valueReceive) {
-    if (valueReceive != '') {
+    if (valueReceive != '' && sizeStaticQueue < 8) {
       if (this.structureObj.insert(valueReceive)) {
         dataPositionsStaticQueue[sizeStaticQueue].value = valueReceive;
         sizeStaticQueue++;
@@ -133,9 +134,14 @@ export default class DrawCanvas {
 
   removeStaticQueue(valueReceive) {
     if (this.structureObj.remove(valueReceive)) {
-      dataPositionsStaticQueue[sizeStaticQueue - 1].value = null;
-      sizeStaticQueue--;
+      dataPositionsStaticQueue[beginStaticQueue].value = null;
+      beginStaticQueue++;
       this.drawStaticQueue();
+
+      if (beginStaticQueue == 8) {
+        beginStaticQueue = 0;
+        sizeStaticQueue = 0;
+      }
     }
   }
 
@@ -261,7 +267,6 @@ export default class DrawCanvas {
         this.ctx.stroke();
 
         if (sizeDoubleLinked > 1 && i >= 0 && i < 8) {
-
           //first and third line
           if (
             i + 1 < sizeDoubleLinked &&

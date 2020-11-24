@@ -28,11 +28,12 @@ export default class StaticQueue {
         }
 
         this.i = (this.i + 1) % this.max;
-        this.elements.pop();
+        this.elements.shift();
         return true
     }
 
     clear() {
+        this.f = 0;
         this.i = this.f;
         this.elements = [];
         return true;
@@ -46,7 +47,6 @@ export default class StaticQueue {
         return false;
     }
     print() {
-        console.log(this.elements)
         for (let i = 0; i < this.elements.length; i++)
             console.log(this.elements[i])
     }

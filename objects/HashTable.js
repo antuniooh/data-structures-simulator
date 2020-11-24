@@ -35,16 +35,16 @@ export default class HashTable {
   }
 
   search(key) {
-    console.log(this._storage)
+    console.log(this._storage);
     let index = this.hash(key);
     if (this._storage[index]) {
       return true;
     }
-    alert("Nao achou")
+    alert('Nao achou');
     return false;
   }
 
-  getSize(){
+  getSize() {
     return this._count;
   }
 
