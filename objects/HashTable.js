@@ -2,7 +2,7 @@ export default class HashTable {
   constructor() {
     this._storage = [];
     this._count = 0;
-    this._limit = 6;
+    this._limit = 5;
   }
 
   insert(key, value) {
@@ -11,9 +11,6 @@ export default class HashTable {
       this._count++;
     }
     this._storage[index] = value;
-    if (this._count > this._storage) {
-      this.resize(this._limit * 2);
-    }
     return true;
   }
 
@@ -29,6 +26,7 @@ export default class HashTable {
     if (this._storage[index]) {
       console.log(this._storage[index]);
       this._storage.splice(index, 1, undefined);
+      this._count--;
       return true;
     }
     return false;
@@ -50,18 +48,5 @@ export default class HashTable {
 
   hash(key) {
     return key % this._limit;
-  }
-
-  resize(newLimit) {
-    let oldArray = this._storage;
-
-    this._limit = newLimit;
-    this._count = 0;
-    this._storage = [];
-
-    for (var i = 0; i < oldArray.length; i++) {
-      var tuple = oldArray[i];
-      this.insert(tuple[0], tuple[1]);
-    }
   }
 }

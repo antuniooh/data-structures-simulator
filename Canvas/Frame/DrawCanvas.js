@@ -345,7 +345,7 @@ export default class DrawCanvas {
   }
 
   insertHash(key, value) {
-    if (key != '' && value != '' && this.structureObj.getSize() < 6) {
+    if (key != '' && value != '' && this.structureObj.getSize() <= 5) {
       if (this.structureObj.insert(key, value)) {
         var find = false;
         var hash_key = this.structureObj.hash(key);
@@ -444,10 +444,13 @@ export default class DrawCanvas {
   removeHash(keyReceive) {
     if (keyReceive != '') {
       if (this.structureObj.remove(keyReceive)) {
-        dataPositionsHashTable.splice(
-          dataPositionsHashTable.findIndex(({ key }) => key == keyReceive),
-          1
-        );
+        let hash_key = this.structureObj.hash(keyReceive);
+        for (var i = 0; i < dataPositionsHashTable.length; i++) {
+          if (hash_key == dataPositionsHashTable[i].hash_key) {
+            break;
+          }
+        }
+        dataPositionsHashTable.splice(i, 1);
         this.drawHash();
       } else {
         alert('Numero nao encontrado');
