@@ -38,7 +38,6 @@ export default class HashTable {
     if (this._storage[index]) {
       return true;
     }
-    alert('Nao achou');
     return false;
   }
 
