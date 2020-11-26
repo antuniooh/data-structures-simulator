@@ -48,4 +48,8 @@ export default class StaticQueue {
     for (let i = 0; i < this.elements.length; i++)
       console.log(this.elements[i]);
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> bee618a5dbdaef465944fb074eafd4e3be85e91e
