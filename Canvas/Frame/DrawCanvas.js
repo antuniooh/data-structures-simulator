@@ -151,7 +151,6 @@ export default class DrawCanvas {
     if (this.structureObj.remove(valueReceive)) {
       dataPositionsStaticQueue[beginStaticQueue].value = null;
       beginStaticQueue++;
-      sizeStaticQueue--;
 
       if (endStaticQueue == 8) endStaticQueue = 0;
       this.drawStaticQueue();
@@ -160,6 +159,7 @@ export default class DrawCanvas {
         beginStaticQueue = 0;
         sizeStaticQueue = 0;
       }
+      sizeStaticQueue--;
     } else {
       alert('Não foi possível remover da fila :(');
     }
@@ -167,9 +167,10 @@ export default class DrawCanvas {
 
   async searchStaticQueue(valueReceive) {
     var finded = this.structureObj.search(valueReceive);
-    for (let i = 0; i < sizeStaticQueue; i++) {
+    for (let i = 0; i < endStaticQueue; i++) {
+      console.log(dataPositionsStaticQueue[i].value == valueReceive);
       if (dataPositionsStaticQueue[i].value == valueReceive) {
-        finded = true
+        finded = true;
         dataPositionsStaticQueue[i].color = 'green';
         break;
       } else dataPositionsStaticQueue[i].color = 'gray';
@@ -182,7 +183,7 @@ export default class DrawCanvas {
 
     if (!finded) alert('Não encontrou o valor na fila :(');
 
-    for (let i = 0; i < sizeStaticQueue; i++) {
+    for (let i = 0; i < 8; i++) {
       dataPositionsStaticQueue[i].color = '#ACA344';
     }
   }
@@ -191,7 +192,7 @@ export default class DrawCanvas {
     if (this.structureObj.clear()) {
       this.clearCanvas();
 
-      for (var i = 0; i < sizeStaticQueue; i++) {
+      for (var i = 0; i < 8; i++) {
         dataPositionsStaticQueue[i].value = null;
       }
       sizeStaticQueue = 0;
