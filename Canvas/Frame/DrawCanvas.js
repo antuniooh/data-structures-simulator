@@ -169,6 +169,7 @@ export default class DrawCanvas {
     var finded = this.structureObj.search(valueReceive);
     for (let i = 0; i < sizeStaticQueue; i++) {
       if (dataPositionsStaticQueue[i].value == valueReceive) {
+        finded = true
         dataPositionsStaticQueue[i].color = 'green';
         break;
       } else dataPositionsStaticQueue[i].color = 'gray';
