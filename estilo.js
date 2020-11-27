@@ -112,6 +112,11 @@ const estilos = StyleSheet.create({
     fontSize: '36px',
     color: '#150940',
   },
+  image: {
+   flex: 1,
+    width: "100%",
+    resizeMode: 'contain'
+     }
 });
 
 export default estilos;

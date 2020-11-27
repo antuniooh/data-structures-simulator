@@ -20,6 +20,8 @@ var dataPositionsStaticQueue = [
 ];
 
 var sizeStaticQueue = 0;
+var beginStaticQueue = 0;
+var endStaticQueue = 0;
 
 var dataPositionsDoubleLinked = [
   { x: 20, y: 10, value: null, color: '#670D67' },
@@ -40,8 +42,6 @@ var dataPositionsHashTable = [];
 export default class DrawCanvas {
   constructor(canvas, structure) {
     this.structureObj = structure;
-
-    this.arrayElements = [];
 
     this.squareWidth = 60;
     this.squareHeigth = 30;
@@ -84,9 +84,13 @@ export default class DrawCanvas {
   insertStaticQueue(valueReceive) {
     if (valueReceive != '') {
       if (this.structureObj.insert(valueReceive)) {
-        dataPositionsStaticQueue[sizeStaticQueue].value = valueReceive;
-        sizeStaticQueue++;
+        if (endStaticQueue == 8) endStaticQueue = 0;
+        dataPositionsStaticQueue[endStaticQueue].value = valueReceive;
+        if (sizeStaticQueue < 8) sizeStaticQueue++;
+        endStaticQueue++;
         this.drawStaticQueue();
+      } else {
+        alert('Não foi possível inserir na fila :(');
       }
     }
   }
@@ -129,20 +133,41 @@ export default class DrawCanvas {
         this.ctx.stroke();
       }
     }
+
+    this.ctx.beginPath();
+    this.ctx.font = 'bold 25px verdana, sans-serif';
+    this.ctx.fillStyle = 'white';
+
+    this.ctx.fillText('Inicio: ' + beginStaticQueue, 5, 20, 80);
+    this.ctx.stroke();
+
+    this.ctx.fillText('Final: ' + endStaticQueue, 210, 20, 80);
+    this.ctx.stroke();
   }
 
   removeStaticQueue(valueReceive) {
     if (this.structureObj.remove(valueReceive)) {
-      dataPositionsStaticQueue[sizeStaticQueue - 1].value = null;
-      sizeStaticQueue--;
+      dataPositionsStaticQueue[beginStaticQueue].value = null;
+      beginStaticQueue++;
+
+      if (endStaticQueue == 8) endStaticQueue = 0;
       this.drawStaticQueue();
+
+      if (beginStaticQueue == 8) {
+        beginStaticQueue = 0;
+        sizeStaticQueue = 0;
+      }
+      sizeStaticQueue--;
+    } else {
+      alert('Não foi possível remover da fila :(');
     }
   }
 
   async searchStaticQueue(valueReceive) {
-    this.structureObj.search(valueReceive);
-    for (let i = 0; i < sizeStaticQueue; i++) {
+    var finded = this.structureObj.search(valueReceive);
+    for (let i = 0; i < endStaticQueue; i++) {
       if (dataPositionsStaticQueue[i].value == valueReceive) {
+        finded = true;
         dataPositionsStaticQueue[i].color = 'green';
         break;
       } else dataPositionsStaticQueue[i].color = 'gray';
@@ -153,19 +178,26 @@ export default class DrawCanvas {
 
     this.drawStaticQueue();
 
-    for (let i = 0; i < sizeStaticQueue; i++) {
+    if (!finded) alert('Não encontrou o valor na fila :(');
+
+    for (let i = 0; i < 8; i++) {
       dataPositionsStaticQueue[i].color = '#ACA344';
     }
   }
 
   clearStaticQueue() {
     if (this.structureObj.clear()) {
-      for (var i = 0; i < sizeStaticQueue; i++) {
+      this.clearCanvas();
+
+      for (var i = 0; i < 8; i++) {
         dataPositionsStaticQueue[i].value = null;
       }
       sizeStaticQueue = 0;
+      beginStaticQueue = 0;
+      endStaticQueue = 0;
+    } else {
+      alert('Não teve sucesso na limpeza :(');
     }
-    this.drawStaticQueue();
   }
 
   insertDoubleLinked(valueReceive) {
@@ -181,15 +213,17 @@ export default class DrawCanvas {
 
         sizeDoubleLinked++;
         this.drawDoubleLinked();
+      } else {
+        alert('Não foi possível inserir na lista :(');
       }
     }
   }
 
   removeDoubleLinked(valueReceive) {
-    for (let i = 0; i < sizeDoubleLinked; i++)
-      dataPositionsDoubleLinked[i].value = null;
-
     if (this.structureObj.remove(parseInt(valueReceive))) {
+      for (let i = 0; i < sizeDoubleLinked; i++)
+        dataPositionsDoubleLinked[i].value = null;
+
       let tmp = this.structureObj.first;
       let i = 0;
       while (tmp != null) {
@@ -199,13 +233,16 @@ export default class DrawCanvas {
       }
       sizeDoubleLinked--;
       this.drawDoubleLinked();
+    } else {
+      alert('Não foi possível remover da lista :(');
     }
   }
 
   async searchDoubleLinked(valueReceive) {
-    this.structureObj.search(valueReceive);
+    var finded = this.structureObj.search(valueReceive);
     for (let i = 0; i < sizeDoubleLinked; i++) {
       if (dataPositionsDoubleLinked[i].value == valueReceive) {
+        finded = true;
         dataPositionsDoubleLinked[i].color = 'green';
         break;
       } else dataPositionsDoubleLinked[i].color = 'gray';
@@ -216,6 +253,8 @@ export default class DrawCanvas {
 
     this.drawDoubleLinked();
 
+    if (!finded) alert('Não encontrou o valor na lista :(');
+
     for (let i = 0; i < sizeDoubleLinked; i++) {
       dataPositionsDoubleLinked[i].color = '#670D67';
     }
@@ -223,12 +262,15 @@ export default class DrawCanvas {
 
   clearDoubleLinked() {
     if (this.structureObj.clear()) {
+      this.clearCanvas();
+
       for (var i = 0; i < sizeDoubleLinked; i++) {
         dataPositionsDoubleLinked[i].value = null;
       }
       sizeDoubleLinked = 0;
+    } else {
+      alert('Não teve sucesso na limpeza :(');
     }
-    this.clearCanvas();
   }
 
   drawDoubleLinked() {
@@ -371,6 +413,8 @@ export default class DrawCanvas {
         this.sortByKey();
         this.drawHash();
       }
+    } else {
+      alert('Não foi possível inserir na tabela :(');
     }
   }
 
@@ -431,7 +475,7 @@ export default class DrawCanvas {
 
       dataPositionsHashTable[i].color = 'black';
     } else {
-      alert('Numero nao encontrado');
+      alert('Não encontrou o valor na tabela :(');
     }
   }
 
@@ -447,7 +491,7 @@ export default class DrawCanvas {
         dataPositionsHashTable.splice(i, 1);
         this.drawHash();
       } else {
-        alert('Numero nao encontrado');
+        alert('Não foi possível remover da tabela :(');
       }
     }
   }
@@ -456,6 +500,8 @@ export default class DrawCanvas {
     if (this.structureObj.clear()) {
       dataPositionsHashTable = [];
       this.clearCanvas();
+    } else {
+      alert('Não teve sucesso na limpeza :(');
     }
   }
 }
