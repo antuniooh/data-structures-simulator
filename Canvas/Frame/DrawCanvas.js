@@ -43,8 +43,6 @@ export default class DrawCanvas {
   constructor(canvas, structure) {
     this.structureObj = structure;
 
-    this.arrayElements = [];
-
     this.squareWidth = 60;
     this.squareHeigth = 30;
     this.canvas = canvas;
@@ -168,7 +166,6 @@ export default class DrawCanvas {
   async searchStaticQueue(valueReceive) {
     var finded = this.structureObj.search(valueReceive);
     for (let i = 0; i < endStaticQueue; i++) {
-      console.log(dataPositionsStaticQueue[i].value == valueReceive);
       if (dataPositionsStaticQueue[i].value == valueReceive) {
         finded = true;
         dataPositionsStaticQueue[i].color = 'green';
@@ -245,6 +242,7 @@ export default class DrawCanvas {
     var finded = this.structureObj.search(valueReceive);
     for (let i = 0; i < sizeDoubleLinked; i++) {
       if (dataPositionsDoubleLinked[i].value == valueReceive) {
+        finded = true;
         dataPositionsDoubleLinked[i].color = 'green';
         break;
       } else dataPositionsDoubleLinked[i].color = 'gray';
