@@ -24,7 +24,6 @@
     "react-native-paper": "3.6.0",
     "react-native-canvas": "*",
     "react-native-screens": "~2.10.1",
-    "react-native-webview": "10.7.0",
     "react-native-elements": "*",
     "react-native-htmlview": "*",
     "@react-navigation/stack": "*",
