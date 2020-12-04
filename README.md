@@ -4,27 +4,18 @@ Projeto semestral da matéria de Estrutura de Dados, ministrada no Centro Univer
 
 ## Funcionalidade
 
-Logo que iniciado o usuário pode selecionar uma das estruturas para interagir:
+<img src = "images/home.jpeg" width ="300" /> <img src = "images/fec.jpeg" width ="300" /> <img src = "images/ldde.jpeg" width ="300" />
+<img src = "images/hash.jpeg" width ="300" /> <img src = "images/info.jpeg" width ="300" /> 
 
-![image](images/home.jpeg)
+Logo que iniciado o usuário pode selecionar uma das estruturas para interagir:
 
 **Fila Estática Circular** - O aplicativo permite ao usuário inserir, remover, pesquisar e limpar a estrutura, observando desse modo como a mesma funciona.
 
-![image](images/fec.jpeg)
-
 **Lista Dinâmica Duplamente Encadeada** - O aplicativo permite ao usuário inserir, remover, pesquisar e limpar a estrutura, observando desse modo como a mesma funciona.
-
-![image](images/ldde.jpeg)
 
 **Tabela Hash** - O aplicativo permite ao usuário inserir, remover, pesquisar e limpar a estrutura, observando desse modo como a mesma funciona.
 
-![image](images/hash.jpeg)
-
 **Informações** - Essa tela exibe ao usuário uma explicação de cada uma das três estruturas do projeto, bem como permite ao mesmo observar sua implementação prática, por meio de imagens do código de cada uma.
-
-![image | 512x397,20%](images/info.jpeg)
-
-<img src = "images/info.jpeg" width ="200" /> <img src = "images/ldde.jpeg" width ="200" />
 
 ## Execução
 
