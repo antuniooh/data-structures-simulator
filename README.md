@@ -24,6 +24,8 @@ Logo que iniciado o usuário pode selecionar uma das estruturas para interagir:
 
 ![image | 512x397,20%](images/info.jpeg)
 
+<img src = "images/info.jpeg" width ="200" /> <img src = "images/ldde.jpeg" width ="200" />
+
 ## Execução
 
 A execução da aplicação pode ser feita na plataforma online do expo.io ou de forma local, basta  executar os seguintes comandos:
