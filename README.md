@@ -1,36 +1,87 @@
-# Projeto - Estrutura de Dados
+<p align="center">
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/antuniooh/data-structures-simulator">
 
-Projeto semestral da matéria de Estrutura de Dados, ministrada no Centro Universitário FEI. Consiste em um aplicativo mobile onde o usuário pode interagir com três estruturas de dados: Lista Dinâmica Duplamente Encadeada, Fila Estática Circular e Tabela Hash. Além de observar o funcionamento geral das estruturas é possível também visualizar a implemnetação das mesmas
+  <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/antuniooh/data-structures-simulator">
+  
+  <a href="https://github.com/antuniooh/data-structures-simulator/commits/master">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/antuniooh/data-structures-simulator">
+  </a>
+  
+   <img alt="GitHub" src="https://img.shields.io/github/license/antuniooh/data-structures-simulator">
+</p>
 
-## Funcionalidade
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+  <a href="https://github.com/antuniooh/data-structures-simulator">
+    <img src="https://res.cloudinary.com/practicaldev/image/fetch/s--ErFNXqjP--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/i/x3akeir98t709d0rbxcy.png" alt="Logo" width="550">
+  </a>
+</p>
 
-<img src = "images/home.jpeg" width ="300" /> <img src = "images/fec.jpeg" width ="300" /> <img src = "images/ldde.jpeg" width ="300" />
-<img src = "images/hash.jpeg" width ="300" /> <img src = "images/info.jpeg" width ="300" /> 
+<p align="center">
+  <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-red?style=for-the-badge&logo=javascript&logoColor=white"/>
+  <img alt="Expo" src="https://img.shields.io/badge/Expo-darkrgreen?style=for-the-badge&logo=expo&logoColor=white"/>
+    <img alt="React" src="https://img.shields.io/badge/React-darkrblue?style=for-the-badge&logo=react&logoColor=white"/>
+</p>
 
-Logo que iniciado o usuário pode selecionar uma das estruturas para interagir:
 
-**Fila Estática Circular** - O aplicativo permite ao usuário inserir, remover, pesquisar e limpar a estrutura, observando desse modo como a mesma funciona.
+<!-- TABLE OF CONTENTS -->
+<details open="open">
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#-about-the-project">About The Project</a>
+    </li>
+    <li>
+      <a href="#-how-to-run">How To Run</a>
+    </li>
+  </ol>
+</details>
 
-**Lista Dinâmica Duplamente Encadeada** - O aplicativo permite ao usuário inserir, remover, pesquisar e limpar a estrutura, observando desse modo como a mesma funciona.
 
-**Tabela Hash** - O aplicativo permite ao usuário inserir, remover, pesquisar e limpar a estrutura, observando desse modo como a mesma funciona.
+<!-- ABOUT THE PROJECT -->
+## 💻 About The Project
+It consists of a mobile application where the user can interact with three data structures: Dynamic Dual Linked List, Circular Static Queue and Hash Table. In addition to observing the general functioning of the structures, it is also possible to view their implementation
 
-**Informações** - Essa tela exibe ao usuário uma explicação de cada uma das três estruturas do projeto, bem como permite ao mesmo observar sua implementação prática, por meio de imagens do código de cada uma.
 
-## Execução
+![app](https://github.com/antuniooh/data-structures-simulator/blob/master/images/app.gif)
 
-A execução da aplicação pode ser feita na plataforma online do expo.io ou de forma local, basta  executar os seguintes comandos:
+Once started, the user can select one of the structures to interact with:
+
+**Circular Static Queue** - The application allows the user to insert, remove, search and clear the structure, thus observing how it works.
+
+**Dual-Threaded Dynamic List** - The application allows the user to insert, remove, search and clear the structure, thus observing how it works.
+
+**Hash Table** - The application allows the user to insert, remove, search and clear the structure, thus observing how it works.
+
+**Information** - This screen shows the user an explanation of each of the three structures of the project, as well as allows the user to observe its practical implementation, through images of the code of each one.
+
+<!-- HOW TO RUN -->
+## 🚀 How To Run
 
 ```bash
-expo start
+
+# Clone the repository
+$ git clone https://github.com/antuniooh/data-structures-simulator.git
+
+# Access the project folder in your terminal / cmd
+$ cd data-structures-simulator
+
+# The application can be run on the expo.io online platform or locally, just run the following commands:
+$ expo start
+
+# If you dont have expo in your machine execute:
+$ npm add expo
+
 ```
 
-Além disso, é possível executar o programa instalando o arquivo .apk contido na pasta apk deste repositório.
+Also, you can run the program by installing the .apk file contained in the apk folder of this repository.
 
-## Integrantes
+https://github.com/antuniooh/data-structures-simulator/blob/master/apk/app.apk
 
-O software em questão foi desenvolvido por 2 pessoas.
+## 🤖 Authors
 
-Antonio Muniz - https://www.linkedin.com/in/antuniooh/
-
-Henrique Vital Carvalho - https://www.linkedin.com/in/henrique-vital-carvalho-45a82b192/
+[Antonio Gustavo](https://github.com/antuniooh)           |  [João Vitor Dias](https://github.com/henriquevital00)           
+:-------------------------:|:-------------------------:|:-------------------------:
+<img src="https://avatars.githubusercontent.com/u/51217271?v=4" alt="drawing" width="150"/>  |  <img src="https://avatars.githubusercontent.com/u/48650626?v=4" alt="drawing" width="150"/>
+Antonio Muniz | Henrique Vital 
