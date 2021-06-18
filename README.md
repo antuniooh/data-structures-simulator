@@ -19,9 +19,9 @@
 </p>
 
 <p align="center">
-  <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-red?style=for-the-badge&logo=javascript&logoColor=white"/>
+  <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-yellow?style=for-the-badge&logo=javascript&logoColor=white"/>
   <img alt="Expo" src="https://img.shields.io/badge/Expo-darkrgreen?style=for-the-badge&logo=expo&logoColor=white"/>
-    <img alt="React" src="https://img.shields.io/badge/React-darkrblue?style=for-the-badge&logo=react&logoColor=white"/>
+    <img alt="React" src="https://img.shields.io/badge/React-darkblue?style=for-the-badge&logo=react&logoColor=white"/>
 </p>
 
 
@@ -43,8 +43,10 @@
 ## 💻 About The Project
 It consists of a mobile application where the user can interact with three data structures: Dynamic Dual Linked List, Circular Static Queue and Hash Table. In addition to observing the general functioning of the structures, it is also possible to view their implementation
 
+<img src = "images/home.jpeg" width ="200" /> <img src = "images/info.jpeg" width ="200" />
+<img src = "images/ldde.jpeg" width ="200" /> <img src = "images/hash.jpeg" width ="200" />
+<img src = "images/fec.jpeg" width ="200" /> 
 
-![app](https://github.com/antuniooh/data-structures-simulator/blob/master/images/app.gif)
 
 Once started, the user can select one of the structures to interact with:
 
@@ -72,6 +74,7 @@ $ expo start
 
 # If you dont have expo in your machine execute:
 $ npm add expo
+$ npm install
 
 ```
 
@@ -82,5 +85,4 @@ https://github.com/antuniooh/data-structures-simulator/blob/master/apk/app.apk
 ## 🤖 Authors
 
 [Antonio Gustavo](https://github.com/antuniooh)           |  [João Vitor Dias](https://github.com/henriquevital00)           
-:-------------------------:|:-------------------------:|:-------------------------:
 <img src="https://avatars.githubusercontent.com/u/51217271?v=4" alt="drawing" width="150"/>  |  <img src="https://avatars.githubusercontent.com/u/48650626?v=4" alt="drawing" width="150"/>
