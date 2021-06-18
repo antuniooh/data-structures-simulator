@@ -43,9 +43,9 @@
 ## 💻 About The Project
 It consists of a mobile application where the user can interact with three data structures: Dynamic Dual Linked List, Circular Static Queue and Hash Table. In addition to observing the general functioning of the structures, it is also possible to view their implementation
 
-<img src = "images/home.jpeg" width ="200" /> <img src = "images/info.jpeg" width ="200" />
-<img src = "images/ldde.jpeg" width ="200" /> <img src = "images/hash.jpeg" width ="200" />
-<img src = "images/fec.jpeg" width ="200" /> 
+<img src = "images/home.jpeg" width ="250" /> <img src = "images/info.jpeg" width ="250" />
+<img src = "images/ldde.jpeg" width ="250" /> <img src = "images/hash.jpeg" width ="250" />
+<img src = "images/fec.jpeg" width ="250" /> 
 
 
 Once started, the user can select one of the structures to interact with:
@@ -84,5 +84,5 @@ https://github.com/antuniooh/data-structures-simulator/blob/master/apk/app.apk
 
 ## 🤖 Authors
 
-[Antonio Gustavo](https://github.com/antuniooh)           |  [João Vitor Dias](https://github.com/henriquevital00)           
+[Antonio Gustavo](https://github.com/antuniooh)           |  [Henrique Vital](https://github.com/henriquevital00)           
 <img src="https://avatars.githubusercontent.com/u/51217271?v=4" alt="drawing" width="150"/>  |  <img src="https://avatars.githubusercontent.com/u/48650626?v=4" alt="drawing" width="150"/>
