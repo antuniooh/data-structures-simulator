@@ -84,4 +84,3 @@ https://github.com/antuniooh/data-structures-simulator/blob/master/apk/app.apk
 [Antonio Gustavo](https://github.com/antuniooh)           |  [João Vitor Dias](https://github.com/henriquevital00)           
 :-------------------------:|:-------------------------:|:-------------------------:
 <img src="https://avatars.githubusercontent.com/u/51217271?v=4" alt="drawing" width="150"/>  |  <img src="https://avatars.githubusercontent.com/u/48650626?v=4" alt="drawing" width="150"/>
-Antonio Muniz | Henrique Vital 
