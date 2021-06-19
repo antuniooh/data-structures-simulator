@@ -52,7 +52,7 @@ Once started, the user can select one of the structures to interact with:
 
 **Circular Static Queue** - The application allows the user to insert, remove, search and clear the structure, thus observing how it works.
 
-**Dual-Threaded Dynamic List** - The application allows the user to insert, remove, search and clear the structure, thus observing how it works.
+**Doubly Linked List** - The application allows the user to insert, remove, search and clear the structure, thus observing how it works.
 
 **Hash Table** - The application allows the user to insert, remove, search and clear the structure, thus observing how it works.
 
