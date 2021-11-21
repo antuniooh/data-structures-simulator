@@ -82,6 +82,10 @@ Also, you can run the program by installing the .apk file contained in the apk f
 
 https://github.com/antuniooh/data-structures-simulator/blob/master/apk/app.apk
 
+or open in expo.io:
+
+https://snack.expo.dev/@git/github.com/antuniooh/DataStructureProject
+
 ## 🤖 Authors
 
 [Antonio Gustavo](https://github.com/antuniooh)           |  [Henrique Vital](https://github.com/henriquevital00)           
