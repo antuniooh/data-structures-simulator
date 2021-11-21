@@ -43,7 +43,8 @@
 ## 💻 About The Project
 It consists of a mobile application where the user can interact with three data structures: Doubly Linked List, Circular Static Queue and Hash Table. In addition to observing the general functioning of the structures, it is also possible to view their implementation
 
-![app](https://github.com/antuniooh/data-structures-simulator/blob/main/images/app.gif)
+![app](https://github.com/antuniooh/data-structures-simulator/blob/main/images/app-1.gif)
+![app](https://github.com/antuniooh/data-structures-simulator/blob/main/images/app-2.gif)
 
 Once started, the user can select one of the structures to interact with:
 
